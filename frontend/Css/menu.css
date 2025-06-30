@@ -1,0 +1,92 @@
+:root {
+  --color-fondo-principal: #000000;
+  --color-fondo-contenedor: #1a0e0a;
+  --color-boton: #a86f1c;
+  --color-texto: #ffffff;
+  --color-hover: #c48725;
+
+  --radio-borde: 12px;
+  --fuente-principal: 'Arial', sans-serif;
+  --ancho-maximo: 400px;
+  --espaciado: 20px;
+
+  --tamano-img: 40px;
+  --tamano-img-sm: 30px;
+  --font-med: 16px;
+  --font-sm: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-fondo-principal);
+  font-family: var(--fuente-principal);
+  color: var(--color-texto);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--espaciado);
+}
+
+.container {
+  max-width: var(--ancho-maximo);
+  width: 100%;
+  padding: var(--espaciado);
+  border-radius: var(--radio-borde);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/images/botin.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  z-index: 0;
+}
+.logo {
+  width: 150px;
+  margin: 0 auto var(--espaciado);
+  display: block;
+}
+main {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  gap: 36px; /* espacio entre botones */
+  max-width: 300px; /* o el tamaño que necesites */
+  margin: auto; /* centra el grid */
+}
+.option {
+  background-color: var(--color-boton);
+  border: none;
+  border-radius: var(--radio-borde);
+  padding: 10px;
+  color: var(--color-texto);
+  font-size: var(--font-med);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: blur(0.5px);
+  transform: scale(0.98);
+  box-shadow: none;
+}

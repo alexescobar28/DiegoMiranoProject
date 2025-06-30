@@ -1,0 +1,97 @@
+:root {
+  --color-fondo-principal: #000000;
+  --color-fondo-contenedor: #1a0e0a;
+  --color-boton: #a86f1c;
+  --color-texto: #ffffff;
+  --color-hover: #c48725;
+
+  --radio-borde: 12px;
+  --fuente-principal: 'Arial', sans-serif;
+  --ancho-maximo: 400px;
+  --espaciado: 20px;
+
+  --tamano-img: 40px;
+  --tamano-img-sm: 30px;
+  --font-med: 16px;
+  --font-sm: 14px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.phone-container {
+  width: 100%;
+  max-width: 375px;
+  background: #000;
+  border-radius: 40px;
+  padding: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.screen {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-radius: 32px;
+  padding: 60px 30px 40px;
+  min-height: 700px;
+  position: relative;
+  overflow: hidden;
+}
+.screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 6px;
+  background: #333;
+  border-radius: 0 0 8px 8px;
+}
+.container {
+  background-color: var(--color-boton);
+  max-width: var(--ancho-maximo);
+  width: 100%;
+  height: 350px;
+  padding: var(--espaciado);
+  border-radius: var(--radio-borde);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--color-texto);
+  padding: 20px;
+}
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/images/botin.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: 0;
+}
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.message-box {
+  margin-top: 25px;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}

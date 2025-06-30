@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Diego Mirano</title>
+    <link
+      rel="stylesheet"
+      href="Css/TipoCompra.css"
+    />
+  </head>
+  <body>
+    <header>
+      <img
+        src="assets/images/Logo.png"
+        alt="Mirano Logo"
+        class="logo"
+      />
+    </header>
+    <div class="container">
+      <main class="main-content">
+        <h2>¿De qué manera adquiriste nuestro producto?</h2>
+        <br />
+        <div class="options">
+          <button
+            class="option"
+            onclick="handleOption('Redes Sociales')"
+          >
+            <img
+              src="assets/icons/socialMedia.svg"
+              alt="Redes Sociales"
+            />
+            <span>Redes Sociales</span>
+          </button>
+          <button
+            class="option"
+            onclick="handleOption('Sitio Web')"
+          >
+            <img
+              src="assets/icons/website.svg"
+              alt="Sitio Web"
+            />
+            <span>Sitio Web</span>
+          </button>
+          <button
+            class="option"
+            onclick="handleOption('Tienda física')"
+          >
+            <img
+              src="assets/icons/store.svg"
+              alt="Tienda Física"
+            />
+            <span>Tienda física</span>
+          </button>
+        </div>
+      </main>
+    </div>
+    <script src="js/TipoCompra.js"></script>
+  </body>
+</html>

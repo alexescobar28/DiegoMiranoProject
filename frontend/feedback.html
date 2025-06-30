@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="Css/feedback.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="screen">
+        <div class="logo">
+          <img
+            src="assets/images/Logo.png"
+            alt="Logo Mirano  "
+          />
+        </div>
+
+        <h1
+          class="title"
+          id="title"
+        >
+          Recrea tu visita
+        </h1>
+
+        <p class="subtitle">
+          Escoge los emojis para recrear la experiencia de compra
+        </p>
+
+        <button
+          class="menu-item"
+          data-step="entrada"
+        >
+          <span>Entrada</span>
+          <div class="emoji-group">
+            <span class="emoji">😊</span>
+            <span class="emoji">😐</span>
+            <span class="emoji">😞</span>
+          </div>
+        </button>
+
+        <button
+          class="menu-item"
+          data-step="busqueda"
+        >
+          <span>Búsqueda</span>
+          <div class="emoji-group">
+            <span class="emoji">😊</span>
+            <span class="emoji">😐</span>
+            <span class="emoji">😞</span>
+          </div>
+        </button>
+
+        <button
+          class="menu-item"
+          data-step="pago"
+        >
+          <span>Pago</span>
+          <div class="emoji-group">
+            <span class="emoji">😊</span>
+            <span class="emoji">😐</span>
+            <span class="emoji">😞</span>
+          </div>
+        </button>
+
+        <button
+          class="menu-item"
+          data-step="entrega"
+        >
+          <span>Entrega</span>
+          <div class="emoji-group">
+            <span class="emoji">😊</span>
+            <span class="emoji">😐</span>
+            <span class="emoji">😞</span>
+          </div>
+        </button>
+
+        <button class="next-button">Siguiente</button>
+      </div>
+    </div>
+
+    <script>
+      // Estado de selecciones
+      const selections = {};
+
+      // Elementos del DOM
+      const menuItems = document.querySelectorAll('.menu-item');
+      const nextButton = document.querySelector('.next-button');
+
+      // Función para manejar la selección de emojis
+      function handleEmojiSelection(menuItem, emoji) {
+        const step = menuItem.dataset.step;
+        const emojis = menuItem.querySelectorAll('.emoji');
+
+        // Remover selección anterior
+        emojis.forEach((e) => e.classList.remove('selected-emoji'));
+
+        // Agregar selección actual
+        emoji.classList.add('selected-emoji');
+
+        // Guardar selección
+        selections[step] = emoji.textContent;
+
+        // Marcar el item como seleccionado
+        menuItem.classList.add('selected');
+
+        // Verificar si todos los pasos están completos
+        checkCompletion();
+      }
+
+      // Función para verificar si todos los pasos están completos
+      function checkCompletion() {
+        const requiredSteps = ['entrada', 'busqueda', 'pago', 'entrega'];
+        const isComplete = requiredSteps.every((step) => selections[step]);
+
+        nextButton.style.opacity = isComplete ? '1' : '0.6';
+        nextButton.style.pointerEvents = isComplete ? 'auto' : 'none';
+      }
+
+      // Event listeners para cada menu item
+      menuItems.forEach((menuItem) => {
+        const emojis = menuItem.querySelectorAll('.emoji');
+
+        emojis.forEach((emoji) => {
+          emoji.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleEmojiSelection(menuItem, emoji);
+          });
+        });
+      });
+
+      // Event listener para el botón siguiente
+      nextButton.addEventListener('click', () => {
+        if (Object.keys(selections).length === 4) {
+          console.log('Selecciones completadas:', selections);
+          alert(
+            '¡Gracias por tu feedback! Selecciones: ' +
+              JSON.stringify(selections, null, 2)
+          );
+          const h1 = document.getElementById('title');
+          h1.textContent = 'Diseña tu entrega perfecta';
+          const subtitle = document.querySelector('.subtitle');
+          subtitle.textContent = 'Ordene segun la importancia para ti';
+        }
+      });
+
+      // Agregar estilos para emoji seleccionado
+      const style = document.createElement('style');
+      style.textContent = `
+            .selected-emoji {
+                transform: scale(1.3) !important;
+                filter: drop-shadow(0 0 8px currentColor);
+            }
+        `;
+      document.head.appendChild(style);
+
+      // Inicializar estado del botón
+      checkCompletion();
+    </script>
+  </body>
+</html>

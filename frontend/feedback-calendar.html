@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="Css/feedback-calendar.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="screen">
+        <div class="logo">
+          <div class="logo-text">MIRANO</div>
+        </div>
+
+        <h1 class="title">Calendario de expectativas</h1>
+
+        <p class="subtitle">
+          Marca tu fecha que esperabas recibirlo y la fecha que llegó
+        </p>
+
+        <div class="date-section">
+          <div class="date-group">
+            <div class="date-label">fecha esperada</div>
+            <input
+              type="date"
+              class="date-input"
+              id="expectedDate"
+              value="2025-06-28"
+            />
+          </div>
+          <div class="date-group">
+            <div class="date-label">fecha llegada</div>
+            <input
+              type="date"
+              class="date-input"
+              id="arrivalDate"
+              value="2025-06-28"
+            />
+          </div>
+        </div>
+
+        <div
+          class="message-box"
+          id="messageBox"
+        >
+          <div
+            class="message-text"
+            id="messageText"
+          >
+            Nos alegra saber que tu producto llegó a tiempo
+          </div>
+        </div>
+
+        <button
+          class="button"
+          onclick="checkDates()"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function updateMessage() {
+        const expectedDate = document.getElementById('expectedDate').value;
+        const arrivalDate = document.getElementById('arrivalDate').value;
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+
+        if (expectedDate && arrivalDate) {
+          if (expectedDate === arrivalDate) {
+            messageBox.classList.add('success');
+            messageBox.classList.remove('error');
+            messageText.textContent =
+              'Nos alegra saber que tu producto llegó a tiempo';
+          } else {
+            messageBox.classList.remove('success');
+            messageBox.classList.add('error');
+            messageText.textContent =
+              'Lo sentimos, estamos trabajando para que tu próxima experiencia sea perfecta';
+          }
+        }
+      }
+
+      function checkDates() {
+        const expectedDate = document.getElementById('expectedDate').value;
+        const arrivalDate = document.getElementById('arrivalDate').value;
+
+        if (!expectedDate || !arrivalDate) {
+          alert('Por favor, selecciona ambas fechas');
+          return;
+        }
+
+        updateMessage();
+
+        // Aquí puedes agregar la lógica para continuar al siguiente paso
+        console.log('Fechas validadas:', {
+          esperada: expectedDate,
+          llegada: arrivalDate,
+          aTiempo: expectedDate === arrivalDate,
+        });
+      }
+
+      // Event listeners para actualizar el mensaje cuando cambien las fechas
+      document
+        .getElementById('expectedDate')
+        .addEventListener('change', updateMessage);
+      document
+        .getElementById('arrivalDate')
+        .addEventListener('change', updateMessage);
+
+      // Inicializar el mensaje
+      updateMessage();
+    </script>
+  </body>
+</html>
