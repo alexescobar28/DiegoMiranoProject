@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div class="phone-container">
+        <div class="status-bar">
+            <div class="status-indicator"></div>
+        </div>
+
+        <div class="logo-container">
+            <div class="logo">MIRANO</div>
+        </div>
+
+        <div class="rating-card">
+            <div class="rating-content">
+                <div class="boot-icon"></div>
+                
+                <div class="rating-text">
+                    Mis botines fueron mi mejor compañero en el viaje. ¿Qué tan de acuerdo estás?
+                </div>
+
+                <div class="stars-container" id="starsContainer">
+                    <svg class="star filled" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <svg class="star filled" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <svg class="star filled" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <svg class="star filled" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <svg class="star filled" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+
+                <div class="rating-label" id="ratingLabel">Muy De acuerdo</div>
+
+                <button class="next-button" id="nextButton">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class RatingApp {
+            constructor() {
+                this.currentRating = 5;
+                this.ratingLabels = {
+                    1: 'Muy En desacuerdo',
+                    2: 'En desacuerdo',
+                    3: 'Neutral',
+                    4: 'De acuerdo',
+                    5: 'Muy De acuerdo'
+                };
+                this.init();
+            }
+
+            init() {
+                this.starsContainer = document.getElementById('starsContainer');
+                this.ratingLabel = document.getElementById('ratingLabel');
+                this.nextButton = document.getElementById('nextButton');
+                
+                this.bindEvents();
+                this.updateUI();
+            }
+
+            bindEvents() {
+                // Event listeners para las estrellas
+                const stars = this.starsContainer.querySelectorAll('.star');
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        this.setRating(index + 1);
+                    });
+
+                    star.addEventListener('mouseenter', () => {
+                        this.highlightStars(index + 1);
+                    });
+                });
+
+                this.starsContainer.addEventListener('mouseleave', () => {
+                    this.updateStars();
+                });
+
+                // Event listener para el botón siguiente
+                this.nextButton.addEventListener('click', () => {
+                    this.handleNext();
+                });
+            }
+
+            setRating(rating) {
+                this.currentRating = rating;
+                this.updateUI();
+                this.animateStars();
+            }
+
+            highlightStars(rating) {
+                const stars = this.starsContainer.querySelectorAll('.star');
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.add('filled');
+                        star.classList.remove('empty');
+                    } else {
+                        star.classList.add('empty');
+                        star.classList.remove('filled');
+                    }
+                });
+            }
+
+            updateStars() {
+                this.highlightStars(this.currentRating);
+            }
+
+            updateUI() {
+                this.updateStars();
+                this.ratingLabel.textContent = this.ratingLabels[this.currentRating];
+            }
+
+            animateStars() {
+                const stars = this.starsContainer.querySelectorAll('.star');
+                stars.forEach((star, index) => {
+                    setTimeout(() => {
+                        star.classList.add('animate');
+                        setTimeout(() => {
+                            star.classList.remove('animate');
+                        }, 300);
+                    }, index * 100);
+                });
+            }
+
+            handleNext() {
+                // Animación del botón
+                this.nextButton.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.nextButton.style.transform = '';
+                }, 150);
+
+                // Aquí puedes agregar la lógica para ir a la siguiente pantalla
+                console.log(`Rating seleccionado: ${this.currentRating} estrellas`);
+                
+                // Ejemplo de transición
+                this.showSuccessMessage();
+            }
+
+            showSuccessMessage() {
+                const card = document.querySelector('.rating-card');
+                card.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+            }
+        }
+
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            new RatingApp();
+        });
+
+        // Funcionalidad adicional para mejorar la experiencia
+        document.addEventListener('DOMContentLoaded', () => {
+            // Prevenir zoom en dispositivos móviles
+            document.addEventListener('touchstart', (e) => {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            });
+
+            // Haptic feedback para dispositivos móviles (si está disponible)
+            if ('vibrate' in navigator) {
+                document.querySelectorAll('.star').forEach(star => {
+                    star.addEventListener('click', () => {
+                        navigator.vibrate(50);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
