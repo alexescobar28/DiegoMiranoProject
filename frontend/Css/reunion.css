@@ -1,0 +1,363 @@
+:root {
+  --primary-bg: #1a1a1a;
+  --card-bg: #8b4513;
+  --accent-gold: #d4af37;
+  --text-white: #ffffff;
+  --text-light: #f5f5f5;
+  --border-radius: 20px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--primary-bg);
+  color: var(--text-white);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.phone-container {
+  width: 100%;
+  max-width: 375px;
+  background: var(--primary-bg);
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 3px solid #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-container::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #666;
+  border-radius: 2px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: #007aff;
+  border-radius: 50%;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  background: var(--text-white);
+  color: var(--primary-bg);
+  padding: 15px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  display: inline-block;
+  position: relative;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  right: 20px;
+  height: 4px;
+  background: var(--accent-gold);
+  border-radius: 2px;
+}
+
+.rating-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.rating-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../assets/images/botin.png') center/contain no-repeat;
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.rating-content {
+  position: relative;
+  z-index: 2;
+}
+
+.boot-icon {
+}
+
+.rating-text {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.feedback-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.feedback-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.feedback-button:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.feedback-button:active {
+  transform: scale(0.95);
+}
+
+.feedback-button.selected {
+  background: rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.thumb-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 32px;
+}
+
+.thumb-up {
+  color: var(--accent-gold);
+}
+
+.thumb-down {
+  color: var(--accent-gold);
+  transform: rotate(180deg);
+}
+
+/* Ocultar elementos de la pantalla anterior */
+.hidden {
+  display: none !important;
+}
+
+/* Animaciones de transición */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.slide-in {
+  animation: slideInLeft 0.5s ease;
+}
+
+.slide-out {
+  animation: slideOutRight 0.5s ease;
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.star {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: var(--transition);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.star.filled {
+  color: var(--accent-gold);
+}
+
+.star.empty {
+  color: #666;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
+.rating-label {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.next-button {
+  background: var(--accent-gold);
+  color: var(--primary-bg);
+  border: none;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+.cuadro-texto {
+  width: 200px; /* ancho */
+  height: 200px; /* alto → lo hace cuadrado */
+  border-radius: 20px; /* esquinas redondeadas */
+  padding: 20px;
+  font-size: 18px;
+  border: 2px solid #888;
+  resize: none; /* evita que el usuario lo redimensione */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.next-button:hover {
+  background: #b8941f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.next-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .phone-container {
+    border-radius: 0;
+    border: none;
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .phone-container::before {
+    display: none;
+  }
+
+  .logo {
+    font-size: 20px;
+    padding: 12px 30px;
+  }
+
+  .rating-card {
+    padding: 30px 20px;
+  }
+
+  .rating-text {
+    font-size: 16px;
+  }
+
+  .star {
+    width: 28px;
+    height: 28px;
+  }
+
+  .next-button {
+    padding: 12px 35px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .rating-text {
+    font-size: 15px;
+  }
+
+  .star {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rating-card {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.star.animate {
+  animation: starPulse 0.3s ease;
+}

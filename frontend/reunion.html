@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Mirano - Rating App</title>
+    <link
+      rel="stylesheet"
+      href="Css/reunion.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="status-bar">
+        <div class="status-indicator"></div>
+      </div>
+
+      <div class="logo-container">
+        <div class="logo">MIRANO</div>
+      </div>
+
+      <div class="rating-card">
+        <div class="rating-content">
+          <div class="boot-icon"></div>
+
+          <div
+            class="rating-text"
+            id="mainText"
+          >
+            Mis botines fueron mi mejor compañero en el viaje. ¿Qué tan de
+            acuerdo estás?
+          </div>
+
+          <div
+            class="stars-container"
+            id="starsContainer"
+          >
+            <svg
+              class="star filled"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              class="star filled"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              class="star filled"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              class="star filled"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+            <svg
+              class="star filled"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+
+          <div
+            class="rating-label"
+            id="ratingLabel"
+          >
+            Muy De acuerdo
+          </div>
+
+          <div
+            class="feedback-section hidden"
+            id="feedbackSection"
+          >
+            <button
+              class="feedback-button"
+              id="thumbUp"
+            >
+              <div class="thumb-icon thumb-up">👍</div>
+            </button>
+            <button
+              class="feedback-button"
+              id="thumbDown"
+            >
+              <div class="thumb-icon thumb-down">👍</div>
+            </button>
+          </div>
+
+          <div
+            class="feedback-section hidden"
+            id="feedbackSection2"
+          >
+            <textarea
+              class="cuadro-texto"
+              placeholder="Escribe aquí..."
+            ></textarea>
+          </div>
+          <button
+            class="next-button"
+            id="nextButton"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      class RatingApp {
+        constructor() {
+          this.currentRating = 5;
+          this.currentScreen = 'rating'; // 'rating' o 'feedback'
+          this.selectedFeedback = []; // 'up' o 'down'
+          this.messageBotin = '';
+          this.ratingLabels = {
+            1: 'Muy En desacuerdo',
+            2: 'En desacuerdo',
+            3: 'Neutral',
+            4: 'De acuerdo',
+            5: 'Muy De acuerdo',
+          };
+          this.init();
+        }
+
+        init() {
+          this.starsContainer = document.getElementById('starsContainer');
+          this.ratingLabel = document.getElementById('ratingLabel');
+          this.nextButton = document.getElementById('nextButton');
+          this.mainText = document.getElementById('mainText');
+          this.messageBotin = document.querySelector('.cuadro-texto');
+          this.feedbackSection = document.getElementById('feedbackSection');
+          this.feedbackSection2 = document.getElementById('feedbackSection2');
+          this.thumbUp = document.getElementById('thumbUp');
+          this.thumbDown = document.getElementById('thumbDown');
+
+          this.bindEvents();
+          this.updateUI();
+        }
+
+        bindEvents() {
+          // Event listeners para las estrellas
+          const stars = this.starsContainer.querySelectorAll('.star');
+          stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+              this.setRating(index + 1);
+            });
+
+            star.addEventListener('mouseenter', () => {
+              this.highlightStars(index + 1);
+            });
+          });
+
+          this.starsContainer.addEventListener('mouseleave', () => {
+            this.updateStars();
+          });
+
+          // Event listeners para los botones de feedback
+          this.thumbUp.addEventListener('click', () => {
+            this.setFeedback('up');
+          });
+
+          this.thumbDown.addEventListener('click', () => {
+            this.setFeedback('down');
+          });
+
+          // Event listener para el botón siguiente
+          this.nextButton.addEventListener('click', () => {
+            this.handleNext();
+          });
+        }
+
+        setRating(rating) {
+          this.currentRating = rating;
+          this.updateUI();
+          this.animateStars();
+        }
+
+        setFeedback(type) {
+          this.selectedFeedback.push(type);
+
+          // Remover selección anterior
+          this.thumbUp.classList.remove('selected');
+          this.thumbDown.classList.remove('selected');
+
+          // Agregar selección actual
+          if (type === 'up') {
+            this.thumbUp.classList.add('selected');
+          } else {
+            this.thumbDown.classList.add('selected');
+          }
+
+          // Vibración háptica
+          if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+          }
+        }
+
+        highlightStars(rating) {
+          const stars = this.starsContainer.querySelectorAll('.star');
+          stars.forEach((star, index) => {
+            if (index < rating) {
+              star.classList.add('filled');
+              star.classList.remove('empty');
+            } else {
+              star.classList.add('empty');
+              star.classList.remove('filled');
+            }
+          });
+        }
+
+        updateStars() {
+          this.highlightStars(this.currentRating);
+        }
+
+        updateUI() {
+          if (
+            this.currentScreen === 'rating' ||
+            this.currentScreen === 'feedback'
+          ) {
+            this.updateStars();
+            this.ratingLabel.textContent =
+              this.ratingLabels[this.currentRating];
+          }
+        }
+
+        animateStars() {
+          const stars = this.starsContainer.querySelectorAll('.star');
+          stars.forEach((star, index) => {
+            setTimeout(() => {
+              star.classList.add('animate');
+              setTimeout(() => {
+                star.classList.remove('animate');
+              }, 300);
+            }, index * 100);
+          });
+        }
+
+        handleNext() {
+          // Animación del botón
+          this.nextButton.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.nextButton.style.transform = '';
+          }, 150);
+
+          if (this.currentScreen === 'rating') {
+            this.showFeedbackScreen(
+              '¿Los botines se sintieron seguros y estables en diferentes superficies?'
+            );
+          } else if (this.currentScreen === 'feedback1') {
+            this.showFeedbackScreenTwo(
+              '¿Mis botines terminaron el viaje luciendo tan bien como empezaron?'
+            );
+          } else if (this.currentScreen === 'feedback2') {
+            this.showFeedbackScreenThree(
+              '¿Hubo un momento durante tu viaje en el que tus botines realmente destacaron (o te decepcionaron)? ¡Cuéntanos!'
+            );
+          } else if (this.currentScreen === 'feedback3') {
+            this.showFeedbackScreenFour(
+              '¿Recomendarías a Diego Mirano a alguien más?'
+            );
+          } else if (this.currentScreen === 'feedback') {
+            this.handleFinalSubmit();
+          }
+        }
+
+        showFeedbackScreen(question) {
+          this.currentScreen = `feedback1`;
+
+          // Animar salida del contenido actual
+          this.starsContainer.classList.add('slide-out');
+          this.ratingLabel.classList.add('slide-out');
+
+          setTimeout(() => {
+            // Ocultar elementos de rating
+            this.starsContainer.classList.add('hidden');
+            this.ratingLabel.classList.add('hidden');
+
+            // Cambiar texto principal
+            this.mainText.textContent = question;
+
+            // Mostrar sección de feedback
+            this.feedbackSection.classList.remove('hidden');
+            this.feedbackSection.classList.add('slide-in');
+
+            // Remover clases de animación
+            this.starsContainer.classList.remove('slide-out');
+            this.ratingLabel.classList.remove('slide-out');
+          }, 500);
+        }
+        showFeedbackScreenTwo(question) {
+          this.currentScreen = 'feedback2';
+          // Remover selección anterior
+          this.thumbUp.classList.remove('selected');
+          this.thumbDown.classList.remove('selected');
+
+          // Cambiar texto principal
+          this.mainText.textContent = question;
+
+          // Mostrar sección de feedback
+          this.feedbackSection.classList.remove('hidden');
+          this.feedbackSection.classList.add('slide-in');
+
+          // Remover clases de animación
+          this.starsContainer.classList.remove('slide-out');
+          this.ratingLabel.classList.remove('slide-out');
+        }
+        showFeedbackScreenThree(question) {
+          this.currentScreen = 'feedback3';
+          // Remover selección anterior
+          this.thumbUp.classList.remove('selected');
+          this.thumbDown.classList.remove('selected');
+          // Cambiar texto principal
+          this.mainText.textContent = question;
+
+          // Mostrar sección de feedback
+          this.feedbackSection2.classList.remove('hidden');
+          this.feedbackSection2.classList.add('slide-in');
+
+          // Ocultar elementos de feedback
+          this.feedbackSection.classList.add('hidden');
+          this.feedbackSection.classList.add('hidden');
+          // Remover clases de animación
+          this.starsContainer.classList.remove('slide-out');
+          this.ratingLabel.classList.remove('slide-out');
+        }
+        showFeedbackScreenFour(question) {
+          this.currentScreen = 'feedback';
+
+          // Ocultar elementos de feedback2
+          this.feedbackSection2.classList.add('hidden');
+          // Cambiar texto principal
+          this.mainText.textContent = question;
+
+          // Mostrar sección de feedback
+          this.starsContainer.classList.remove('hidden');
+          this.ratingLabel.classList.remove('hidden');
+          this.starsContainer.classList.add('slide-in');
+          this.ratingLabel.classList.add('slide-in');
+        }
+        handleFinalSubmit() {
+          console.log(`Rating: ${this.currentRating} estrellas`);
+          console.log(`Feedback: ${this.selectedFeedback[0]}`);
+          console.log(`Feedback2: ${this.selectedFeedback[1]}`);
+          console.log(`Feedback3: ${this.messageBotin.value}`);
+          // Mostrar mensaje de éxito
+          this.showSuccessMessage();
+        }
+
+        showSuccessMessage() {
+          window.open('thanks.html', '_self');
+        }
+      }
+
+      // Inicializar la aplicación cuando el DOM esté listo
+      document.addEventListener('DOMContentLoaded', () => {
+        new RatingApp();
+      });
+
+      // Funcionalidad adicional para mejorar la experiencia
+      document.addEventListener('DOMContentLoaded', () => {
+        // Prevenir zoom en dispositivos móviles
+        document.addEventListener('touchstart', (e) => {
+          if (e.touches.length > 1) {
+            e.preventDefault();
+          }
+        });
+
+        // Haptic feedback para dispositivos móviles (si está disponible)
+        if ('vibrate' in navigator) {
+          document.querySelectorAll('.star').forEach((star) => {
+            star.addEventListener('click', () => {
+              navigator.vibrate(50);
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
