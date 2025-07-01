@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="Css/cuidado.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="header">
+        <div class="logo">MIRANO</div>
+      </div>
+      <div class="screen">
+        <div class="content">
+          <!-- Pantalla 1: Introducción -->
+          <div
+            id="screen1"
+            class="main-content"
+          >
+            <div class="product-image">
+              <div class="shoe-care-kit"></div>
+            </div>
+            <div class="question-box">
+              ¿Sabías que limpiar tus zapatos regularmente puede duplicar su
+              vida útil?
+            </div>
+          </div>
+
+          <!-- Pantalla 2: Pregunta sobre ritual -->
+          <div
+            id="screen2"
+            class="main-content hidden"
+          >
+            <div class="ritual-question">
+              Hoy tus zapatos tuvieron un spa. ¿Cómo fue tu ritual?
+            </div>
+            <div class="options-container">
+              <button class="option-button">
+                🎯 Cuidado perfecto: "Traje el cuero como espejo, me sentí como
+                un verdadero caballero"
+              </button>
+              <button class="option-button">
+                🧼 Cuidado básico: "Un retoque rápido, lo justo para salir
+                elegante"
+              </button>
+              <button class="option-button">
+                🔧 Cuidado técnico: "Si, son tengo la crema correcta... ups"
+              </button>
+            </div>
+          </div>
+
+          <!-- Pantalla 3: Dificultad del kit -->
+          <div
+            id="screen3"
+            class="main-content hidden"
+          >
+            <div class="shoe-container">
+              <div class="shoe"></div>
+            </div>
+            <div class="difficulty-text">¿Qué tan fácil fue usar el kit?</div>
+            <div class="slider-container">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                class="slider"
+                id="difficultySlider"
+              />
+              <div class="slider-labels">
+                <span>Muy difícil </span>
+                <span>Fácil </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pantalla 4: Pregunta de compra -->
+          <div
+            id="screen4"
+            class="main-content hidden"
+          >
+            <div class="purchase-question">
+              Volverías a comprar con nosotros?
+            </div>
+            <div class="options-container">
+              <button class="option-button">
+                <span class="emoji">😊</span>
+                Absolutamente
+              </button>
+              <button class="option-button">
+                <span class="emoji">😐</span>
+                No lo sé
+              </button>
+              <button class="option-button">
+                <span class="emoji">😕</span>
+                Tal vez no
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="next-button"
+            onclick="nextScreen()"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentScreen = 1;
+      const totalScreens = 4;
+
+      function nextScreen() {
+        // Ocultar pantalla actual
+        document
+          .getElementById(`screen${currentScreen}`)
+          .classList.add('hidden');
+
+        // Incrementar contador
+        currentScreen++;
+
+        // Mostrar siguiente pantalla o reiniciar
+        if (currentScreen <= totalScreens) {
+          document
+            .getElementById(`screen${currentScreen}`)
+            .classList.remove('hidden');
+        } else {
+          window.location.href = 'thanks.html'; // Redirigir al inicio
+        }
+
+        // Cambiar texto del botón en la última pantalla
+        const nextButton = document.querySelector('.next-button');
+        if (currentScreen === totalScreens) {
+          nextButton.textContent = 'Finalizar';
+        } else {
+          nextButton.textContent = 'Siguiente';
+        }
+      }
+
+      // Manejar clicks en opciones
+      document.querySelectorAll('.option-button').forEach((button) => {
+        button.addEventListener('click', function () {
+          // Remover selección anterior
+          document.querySelectorAll('.option-button').forEach((btn) => {
+            btn.style.background = 'var(--red-button)';
+          });
+
+          // Seleccionar opción actual
+          this.style.background = 'var(--dark-brown)';
+        });
+      });
+
+      // Manejar slider
+      const slider = document.getElementById('difficultySlider');
+      const shoeIcon = document.querySelector('.shoe');
+
+      if (slider && shoeIcon) {
+        // Establecer opacidad inicial
+        shoeIcon.style.opacity = '0.5';
+
+        slider.addEventListener('input', function () {
+          const value = this.value;
+          const percentage = (value / 100) * 100;
+
+          // Cambiar background del slider
+          this.style.background = `linear-gradient(to right, var(--golden-yellow) 0%, var(--golden-yellow) ${percentage}%, var(--light-brown) ${percentage}%, var(--light-brown) 100%)`;
+
+          // Cambiar opacidad del zapato basado en el valor del slider
+          // Valor 0 = opacidad 0.1 (muy difícil, zapato muy tenue)
+          // Valor 100 = opacidad 1 (muy fácil, zapato muy visible)
+          const opacity = 0.1 + (value / 100) * 0.9;
+          shoeIcon.style.opacity = opacity.toString();
+        });
+      }
+    </script>
+  </body>
+</html>

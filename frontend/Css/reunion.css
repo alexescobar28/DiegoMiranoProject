@@ -50,21 +50,6 @@ body {
   border-radius: 2px;
 }
 
-.status-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0;
-  margin-bottom: 20px;
-}
-
-.status-indicator {
-  width: 8px;
-  height: 8px;
-  background: #007aff;
-  border-radius: 50%;
-}
-
 .logo-container {
   text-align: center;
   margin-bottom: 40px;

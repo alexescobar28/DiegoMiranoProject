@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Mirano Survey</title>
+    <style></style>
+    <link
+      rel="stylesheet"
+      href="Css/evento.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="screen">
+        <div class="header">
+          <div class="logo">MIRANO</div>
+        </div>
+
+        <div class="content">
+          <!-- Screen 1: Event Type Selection -->
+          <div
+            id="screen1"
+            class="screen-content"
+          >
+            <div class="question-text">¿En qué tipo de evento los usaste?</div>
+            <div class="options-container">
+              <button
+                class="option"
+                data-value="gala"
+              >
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iIzMzMzMzMyIvPgo8cGF0aCBkPSJNMzAgMTVMMzUgMjVIMjVMMzAgMTVaIiBmaWxsPSIjRkZENzAwIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iNDAiIHI9IjgiIGZpbGw9IiNGRkQ3MDAiLz4KPC9zdmc+Cg=="
+                  alt="Gala"
+                  class="option-image"
+                />
+                <span class="option-text">Noche de gala</span>
+              </button>
+              <button
+                class="option"
+                data-value="casual"
+              >
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0ZGQTUwMCIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI2IiBmaWxsPSIjRkZGIi8+CjxjaXJjbGUgY3g9IjQwIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiNGRkYiLz4KPGNpcmNsZSBjeD0iMzAiIGN5PSI0MCIgcj0iMTAiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg=="
+                  alt="Casual"
+                  class="option-image"
+                />
+                <span class="option-text">Cena casual</span>
+              </button>
+              <button
+                class="option"
+                data-value="unexpected"
+              >
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0Y0NDMzNiIvPgo8cGF0aCBkPSJNMTUgMTVIMzBWMzBIMTVWMTVaIiBmaWxsPSIjRkZGIi8+CjxwYXRoIGQ9IjMwIDE1SDQ1VjMwSDMwVjE1WiIgZmlsbD0iI0ZGRiIvPgo8cGF0aCBkPSJNMTUgMzBIMzBWNDVIMTVWMzBaIiBmaWxsPSIjRkZGIi8+CjxwYXRoIGQ9Ik0zMCAzMEg0NVY0NUgzMFYzMFoiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg=="
+                  alt="Inesperado"
+                  class="option-image"
+                />
+                <span class="option-text">Evento inesperado</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Screen 2: Appropriateness Feedback -->
+          <div
+            id="screen2"
+            class="screen-content hidden"
+          >
+            <div class="question-text">
+              ¿Te parecieron apropiados para la ocasión?
+            </div>
+            <div class="feedback-container">
+              <button
+                class="feedback-option thumbs-up"
+                data-value="yes"
+              >
+                <div class="feedback-icon">👍</div>
+              </button>
+              <button
+                class="feedback-option thumbs-down"
+                data-value="no"
+              >
+                <div class="feedback-icon">👎</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Screen 3: Comfort Feedback -->
+          <div
+            id="screen3"
+            class="screen-content hidden"
+          >
+            <div class="question-text">
+              ¿Notaste alguna incomodidad durante el tiempo de pie prolongado?
+            </div>
+            <div class="feedback-container">
+              <button
+                class="feedback-option thumbs-up"
+                data-value="yes"
+              >
+                <div class="feedback-icon">👍</div>
+              </button>
+              <button
+                class="feedback-option thumbs-down"
+                data-value="no"
+              >
+                <div class="feedback-icon">👎</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Screen 4: Purchase Intent -->
+          <div
+            id="screen4"
+            class="screen-content hidden"
+          >
+            <div class="question-text">Volverías a comprar con nosotros?</div>
+            <div class="rating-options">
+              <button
+                class="rating-option"
+                data-value="absolutely"
+              >
+                <span class="rating-emoji">😊</span>
+                <span>Absolutamente</span>
+              </button>
+              <button
+                class="rating-option"
+                data-value="maybe"
+              >
+                <span class="rating-emoji">😐</span>
+                <span>No lo sé</span>
+              </button>
+              <button
+                class="rating-option"
+                data-value="probably-not"
+              >
+                <span class="rating-emoji">😕</span>
+                <span>Tal vez no</span>
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="next-button"
+            id="nextButton"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      class SurveyApp {
+        constructor() {
+          this.currentScreen = 1;
+          this.maxScreens = 4;
+          this.responses = {};
+          this.init();
+        }
+
+        init() {
+          this.bindEvents();
+          this.updateButtonState();
+        }
+
+        bindEvents() {
+          // Event listeners para opciones
+          document.addEventListener('click', (e) => {
+            if (
+              e.target.classList.contains('option') ||
+              e.target.closest('.option')
+            ) {
+              this.handleOptionClick(e.target.closest('.option'));
+            }
+
+            if (
+              e.target.classList.contains('feedback-option') ||
+              e.target.closest('.feedback-option')
+            ) {
+              this.handleFeedbackClick(e.target.closest('.feedback-option'));
+            }
+
+            if (
+              e.target.classList.contains('rating-option') ||
+              e.target.closest('.rating-option')
+            ) {
+              this.handleRatingClick(e.target.closest('.rating-option'));
+            }
+          });
+
+          // Event listener para botón siguiente
+          document
+            .getElementById('nextButton')
+            .addEventListener('click', () => {
+              this.nextScreen();
+            });
+        }
+
+        handleOptionClick(option) {
+          // Remover selección previa
+          const currentScreenEl = document.getElementById(
+            `screen${this.currentScreen}`
+          );
+          currentScreenEl.querySelectorAll('.option').forEach((opt) => {
+            opt.classList.remove('selected');
+          });
+
+          // Seleccionar opción actual
+          option.classList.add('selected');
+          this.responses[`screen${this.currentScreen}`] = option.dataset.value;
+          this.updateButtonState();
+        }
+
+        handleFeedbackClick(feedback) {
+          // Remover selección previa
+          const currentScreenEl = document.getElementById(
+            `screen${this.currentScreen}`
+          );
+          currentScreenEl
+            .querySelectorAll('.feedback-option')
+            .forEach((opt) => {
+              opt.classList.remove('selected');
+            });
+
+          // Seleccionar opción actual
+          feedback.classList.add('selected');
+          this.responses[`screen${this.currentScreen}`] =
+            feedback.dataset.value;
+          this.updateButtonState();
+        }
+
+        handleRatingClick(rating) {
+          // Remover selección previa
+          const currentScreenEl = document.getElementById(
+            `screen${this.currentScreen}`
+          );
+          currentScreenEl.querySelectorAll('.rating-option').forEach((opt) => {
+            opt.classList.remove('selected');
+          });
+
+          // Seleccionar opción actual
+          rating.classList.add('selected');
+          this.responses[`screen${this.currentScreen}`] = rating.dataset.value;
+          this.updateButtonState();
+        }
+
+        nextScreen() {
+          if (!this.canProceed()) return;
+
+          // Ocultar pantalla actual
+          document
+            .getElementById(`screen${this.currentScreen}`)
+            .classList.add('hidden');
+
+          // Mostrar siguiente pantalla
+          this.currentScreen++;
+
+          if (this.currentScreen <= this.maxScreens) {
+            document
+              .getElementById(`screen${this.currentScreen}`)
+              .classList.remove('hidden');
+            this.updateButtonState();
+          } else {
+            this.completeSurvey();
+          }
+        }
+
+        canProceed() {
+          return this.responses[`screen${this.currentScreen}`] !== undefined;
+        }
+
+        updateButtonState() {
+          const nextButton = document.getElementById('nextButton');
+          const canProceed = this.canProceed();
+
+          nextButton.disabled = !canProceed;
+          nextButton.style.opacity = '1';
+          nextButton.style.pointerEvents = 'auto';
+
+          // Cambiar texto del botón en la última pantalla
+          if (this.currentScreen === this.maxScreens) {
+            nextButton.textContent = 'Finalizar';
+          } else {
+            nextButton.textContent = 'Siguiente';
+          }
+        }
+
+        completeSurvey() {
+          // Mostrar mensaje de agradecimiento
+          window.open('thanks.html', '_self');
+          // Guardar respuestas (en un caso real, enviarías esto a un servidor)
+          console.log('Survey responses:', this.responses);
+        }
+      }
+
+      // Inicializar la aplicación cuando el DOM esté listo
+      document.addEventListener('DOMContentLoaded', () => {
+        new SurveyApp();
+      });
+    </script>
+  </body>
+</html>

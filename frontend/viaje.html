@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="Css/viaje.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="logo-container">
+        <div class="logo">MIRANO</div>
+      </div>
+      <div class="app-container">
+        <!-- Pantalla 1: Botines y avión -->
+        <div
+          class="screen active"
+          id="screen1"
+        >
+          <div class="content">
+            <div class="airplane-icon">
+              <div class="airplane">✈️</div>
+            </div>
+            <div class="message">
+              Con estos botines, mi estilo en reuniones de negocios fue
+              impecable.
+            </div>
+            <div class="slider-container">
+              <label
+                for="distanceSlider"
+                class="slider-label"
+              >
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                value="0"
+                class="slider"
+                id="distanceSlider"
+              />
+              <div
+                id="progressIndicator"
+                class="progress-indicator"
+              ></div>
+            </div>
+            <button
+              class="next-button"
+              onclick="nextScreen()"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+
+        <!-- Pantalla 2: Evaluación con emojis -->
+        <div
+          class="screen"
+          id="screen2"
+        >
+          <div class="content">
+            <div class="message">
+              Pude estar de pie o caminar cómodamente durante todo el evento
+            </div>
+            <div class="emoji-container">
+              <div
+                class="emoji"
+                onclick="selectEmoji(this, 'happy')"
+              >
+                😊
+              </div>
+              <div
+                class="emoji"
+                onclick="selectEmoji(this, 'neutral')"
+              >
+                😐
+              </div>
+              <div
+                class="emoji"
+                onclick="selectEmoji(this, 'sad')"
+              >
+                😞
+              </div>
+            </div>
+            <button
+              class="next-button"
+              onclick="nextScreen()"
+              disabled
+              id="nextBtn2"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+
+        <!-- Pantalla 3: Opciones múltiples -->
+        <div
+          class="screen"
+          id="screen3"
+        >
+          <div class="content">
+            <div class="message">
+              Estos botines combinaron perfectamente con mis diferentes trajes
+            </div>
+            <div class="options-container">
+              <button
+                class="option-button"
+                onclick="selectOption(this, 'encanto')"
+              >
+                Me encantó 😍
+              </button>
+              <button
+                class="option-button"
+                onclick="selectOption(this, 'bien')"
+              >
+                Estuvo bien 👍
+              </button>
+              <button
+                class="option-button"
+                onclick="selectOption(this, 'mejor')"
+              >
+                Pudo ser mejor 🤔
+              </button>
+            </div>
+            <button
+              class="next-button"
+              onclick="nextScreen()"
+              disabled
+              id="nextBtn3"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+        <!-- Pantalla 4: Recomendación -->
+        <div
+          class="screen"
+          id="screen4"
+        >
+          <div class="content">
+            <div
+              class="rating-text"
+              id="mainText"
+            >
+              ¿Recomendarías a Diego Mirano a alguien más?
+            </div>
+            <div
+              class="stars-container"
+              id="starsContainer"
+            >
+              <svg
+                class="star filled"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                onclick="rate(1)"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              <svg
+                class="star filled"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                onclick="rate(2)"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              <svg
+                class="star filled"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                onclick="rate(3)"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              <svg
+                class="star filled"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                onclick="rate(4)"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              <svg
+                class="star filled"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                onclick="rate(5)"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <div
+              id="ratingMessage"
+              class="rating-message"
+            ></div>
+            <button
+              class="next-button"
+              onclick="nextScreen()"
+              disabled
+              id="nextBtn4"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentScreen = 1;
+      let selectedEmoji = null;
+      let selectedOption = null;
+      const ratingMessages = {
+        1: 'NO EN ABSOLUTO',
+        2: 'NO LO SÉ',
+        3: 'TAL VEZ',
+        4: 'SÍ',
+        5: 'DEFINITIVAMENTE SÍ',
+      };
+
+      function rate(score) {
+        const stars = document.querySelectorAll('#starsContainer .star');
+        const messageDiv = document.getElementById('ratingMessage');
+
+        stars.forEach((star, index) => {
+          if (index < score) {
+            star.classList.add('filled');
+            // Habilitar botón siguiente
+            document.getElementById('nextBtn4').disabled = false;
+          } else {
+            star.classList.remove('filled');
+          }
+        });
+
+        messageDiv.textContent = ratingMessages[score] || '';
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        const slider = document.getElementById('distanceSlider');
+        slider.addEventListener('input', function () {
+          updateProgressIndicator();
+        });
+
+        // Llamar inicialmente también si es necesario
+        updateProgressIndicator();
+      });
+      function nextScreen() {
+        const current = document.getElementById(`screen${currentScreen}`);
+        current.classList.remove('active');
+
+        currentScreen++;
+
+        if (currentScreen <= 4) {
+          const next = document.getElementById(`screen${currentScreen}`);
+          next.classList.add('active');
+        } else {
+          window.location.href = 'thanks.html';
+        }
+      }
+
+      function selectEmoji(element, type) {
+        // Remover selección previa
+        document.querySelectorAll('.emoji').forEach((emoji) => {
+          emoji.classList.remove('selected');
+        });
+
+        // Agregar selección actual
+        element.classList.add('selected');
+        selectedEmoji = type;
+
+        // Habilitar botón siguiente
+        document.getElementById('nextBtn2').disabled = false;
+      }
+
+      function selectOption(element, option) {
+        // Remover selección previa
+        document.querySelectorAll('.option-button').forEach((btn) => {
+          btn.classList.remove('selected');
+        });
+
+        // Agregar selección actual
+        element.classList.add('selected');
+        selectedOption = option;
+
+        // Habilitar botón siguiente
+        document.getElementById('nextBtn3').disabled = false;
+      }
+
+      function resetSelections() {
+        selectedEmoji = null;
+        selectedOption = null;
+
+        // Limpiar selecciones visuales
+        document
+          .querySelectorAll('.emoji.selected, .option-button.selected')
+          .forEach((el) => {
+            el.classList.remove('selected');
+          });
+
+        // Deshabilitar botones
+        document.getElementById('nextBtn2').disabled = true;
+        document.getElementById('nextBtn3').disabled = true;
+      }
+
+      // Agregar efectos de sonido simulados (opcional)
+      function playClickSound() {
+        // Simular feedback táctil
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+      }
+
+      function updateProgressIndicator() {
+        const progressIndicator = document.getElementById('progressIndicator');
+        const slider = document.getElementById('distanceSlider');
+        const currentDistance = parseFloat(slider.value);
+        const maxShoeDistance = parseFloat(slider.max);
+
+        if (
+          isNaN(currentDistance) ||
+          isNaN(maxShoeDistance) ||
+          maxShoeDistance === 0
+        ) {
+          progressIndicator.textContent = '';
+          progressIndicator.style.backgroundColor = 'transparent';
+          return;
+        }
+
+        const percentageUsed = (currentDistance / maxShoeDistance) * 100;
+
+        let difficulty = '';
+        let color = '';
+
+        if (percentageUsed <= 40) {
+          difficulty = 'Desapercibido';
+          color = '#e74c3c'; // rojo
+        } else if (percentageUsed <= 80) {
+          difficulty = 'Neutro';
+          color = '#f1c40f'; // Amarillo
+        } else {
+          difficulty = 'Impecable';
+          color = '#2ecc71'; // Rojo
+        }
+
+        progressIndicator.textContent = difficulty;
+        progressIndicator.style.backgroundColor = color;
+      }
+    </script>
+  </body>
+</html>

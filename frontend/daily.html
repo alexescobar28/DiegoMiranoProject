@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="Css/daily.css"
+    />
+  </head>
+  <body>
+    <div class="phone-container">
+      <div class="screen">
+        <div class="header">MIRANO</div>
+
+        <!-- Pantalla 1: Selección de jornada -->
+        <div
+          id="screen1"
+          class="content"
+        >
+          <h2 class="title">Elige tu jornada</h2>
+          <div class="options-container">
+            <button
+              class="option-button"
+              data-option="dia-oficina"
+            >
+              <div class="emoji">😊</div>
+              <span>Día de oficina</span>
+            </button>
+            <button
+              class="option-button"
+              data-option="recorrido-ciudad"
+            >
+              <div class="emoji">🙂</div>
+              <span>Recorrido por la ciudad</span>
+            </button>
+            <button
+              class="option-button"
+              data-option="jornada-casa"
+            >
+              <div class="emoji">😐</div>
+              <span>Jornada tranquila en casa</span>
+            </button>
+          </div>
+          <button
+            class="next-button"
+            onclick="nextScreen()"
+          >
+            Siguiente
+          </button>
+        </div>
+
+        <!-- Pantalla 2: Feedback -->
+        <div
+          id="screen2"
+          class="content hidden"
+        >
+          <div class="feedback-text">
+            Hoy fuiste firme y elegante, pero podríamos darte más comodidad. ¿Te
+            gustaría ayudarnos a mejorar tu experiencia?
+          </div>
+          <div class="checkbox-container">
+            <div
+              class="checkbox"
+              onclick="toggleCheckbox()"
+            >
+              ✓
+            </div>
+            <span class="checkbox-label">Sugerir mejoras</span>
+          </div>
+          <textarea
+            class="comment-box"
+            placeholder="Cuéntanos..."
+          ></textarea>
+          <button
+            class="next-button"
+            onclick="nextScreen()"
+          >
+            Siguiente
+          </button>
+        </div>
+
+        <!-- Pantalla 3: Calificación -->
+        <div
+          id="screen3"
+          class="content hidden"
+        >
+          <div class="rating-text">
+            ¿Qué tan probable es que recomiendes Diego Mirano a alguien más?
+          </div>
+          <div class="stars-container">
+            <span
+              class="star"
+              onclick="rateStar(1)"
+              >★</span
+            >
+            <span
+              class="star"
+              onclick="rateStar(2)"
+              >★</span
+            >
+            <span
+              class="star"
+              onclick="rateStar(3)"
+              >★</span
+            >
+            <span
+              class="star"
+              onclick="rateStar(4)"
+              >★</span
+            >
+            <span
+              class="star"
+              onclick="rateStar(5)"
+              >★</span
+            >
+          </div>
+          <div class="probability-text">Muy Probablemente</div>
+          <button
+            class="next-button"
+            onclick="nextScreen()"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentScreen = 1;
+      let selectedOption = null;
+      let isCheckboxChecked = true;
+      let currentRating = 5;
+
+      // Navegación entre pantallas
+      function nextScreen() {
+        const current = document.getElementById(`screen${currentScreen}`);
+        current.classList.add('hidden');
+
+        currentScreen++;
+        if (currentScreen > 3) {
+          currentScreen = 1; // Reiniciar al principio
+        }
+
+        const next = document.getElementById(`screen${currentScreen}`);
+        next.classList.remove('hidden');
+        next.classList.add('fade-in');
+
+        // Remover la clase de animación después de la animación
+        setTimeout(() => {
+          next.classList.remove('fade-in');
+        }, 500);
+      }
+
+      // Manejo de selección de opciones en pantalla 1
+      document.querySelectorAll('.option-button').forEach((button) => {
+        button.addEventListener('click', function () {
+          // Remover selección anterior
+          document.querySelectorAll('.option-button').forEach((btn) => {
+            btn.style.backgroundColor = 'var(--color-card)';
+          });
+
+          // Agregar selección actual
+          this.style.backgroundColor = 'var(--color-secondary)';
+          selectedOption = this.dataset.option;
+        });
+      });
+
+      // Toggle checkbox en pantalla 2
+      function toggleCheckbox() {
+        const checkbox = document.querySelector('.checkbox');
+        isCheckboxChecked = !isCheckboxChecked;
+
+        if (isCheckboxChecked) {
+          checkbox.innerHTML = '✓';
+          checkbox.style.backgroundColor = 'var(--color-accent)';
+        } else {
+          checkbox.innerHTML = '';
+          checkbox.style.backgroundColor = 'var(--color-text-white)';
+        }
+      }
+
+      // Manejo de calificación con estrellas
+      function rateStar(rating) {
+        currentRating = rating;
+        const stars = document.querySelectorAll('.star');
+        const probabilityText = document.querySelector('.probability-text');
+
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.style.color = 'var(--color-accent)';
+          } else {
+            star.style.color = '#666';
+          }
+        });
+
+        // Cambiar texto según calificación
+        const probabilities = [
+          'Muy Improbable',
+          'Improbable',
+          'Neutral',
+          'Probable',
+          'Muy Probablemente',
+        ];
+        probabilityText.textContent = probabilities[rating - 1];
+      }
+
+      // Efectos hover para botones
+      document
+        .querySelectorAll('.option-button, .next-button')
+        .forEach((button) => {
+          button.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-2px)';
+          });
+
+          button.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0)';
+          });
+        });
+
+      // Inicializar la aplicación
+      document.addEventListener('DOMContentLoaded', function () {
+        // Asegurar que solo la primera pantalla esté visible
+        document.getElementById('screen1').classList.remove('hidden');
+        document.getElementById('screen2').classList.add('hidden');
+        document.getElementById('screen3').classList.add('hidden');
+
+        // Inicializar estrellas
+        rateStar(5);
+      });
+    </script>
+  </body>
+</html>
