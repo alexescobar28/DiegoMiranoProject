@@ -25,71 +25,127 @@
         <div class="options">
           <button
             class="option"
-            onclick="handleOption('Redes Sociales')"
+            onclick="handleOption('Reunión')"
             disabled
+            id="btnReunion"
           >
             <img
-              src=""
-              alt="Redes Sociales"
+              src="./assets/icons/maleta-icon.svg"
+              alt="Reunión"
             />
-            <span>Redes Sociales</span>
+            <span>Reunión</span>
           </button>
           <button
             class="option"
-            onclick="handleOption('Sitio Web')"
+            onclick="handleOption('Calle')"
             disabled
+            id="btnCalle"
           >
             <img
-              src=""
-              alt="Sitio Web"
+              src="./assets/icons/calle-icon.svg"
+              alt="Calle"
             />
-            <span>Sitio Web</span>
+            <span>Calle</span>
           </button>
           <button
             class="option"
-            onclick="handleOption('Tienda física')"
+            onclick="handleOption('Limpieza')"
             disabled
+            id="btnLimpieza"
           >
             <img
-              src=""
-              alt="Tienda Física"
+              src="./assets/icons/Limpieza.svg"
+              alt="Limpieza"
             />
-            <span>Tienda física</span>
+            <span>Limpieza</span>
           </button>
           <button
             class="option"
-            onclick="handleOption('Tienda física')"
+            onclick="handleOption('Viaje')"
             disabled
+            id="btnViaje"
           >
             <img
-              src=""
-              alt="Tienda Física"
+              src="./assets/icons/viaje-icon.svg"
+              alt="Viaje"
             />
-            <span>Tienda física</span>
+            <span>Viaje</span>
           </button>
           <button
             class="option"
-            onclick="handleOption('Tienda física')"
+            onclick="handleOption('Evento')"
             disabled
+            id="btnEvento"
           >
             <img
-              src=""
-              alt="Tienda Física"
+              src="./assets/icons/vino-icon.svg"
+              alt="Evento"
             />
-            <span>Tienda física</span>
+            <span>Evento</span>
           </button>
           <button
             class="option"
-            onclick="handleOption('Tienda física')"
+            onclick="handleOption('Experiencia')"
+            id="btnExperiencia"
           >
             <img
-              src=""
-              alt="Tienda Física"
+              src="./assets/icons/experinecia-icon.svg"
+              alt="Experiencia"
             />
-            <span>Tienda física</span>
+            <span>Experiencia</span>
           </button>
         </div>
       </main>
     </div>
+
+    <script>
+      const boxId = 'ZBX90234'; // Este valor puede ser dinámico si lo pasas por QR
+
+      async function verificarEstadoBox() {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/feedback?boxId=${boxId}`
+          );
+          const data = await response.json();
+          console.log(data);
+
+          if (data.status === 'nuevo' || data.status === 'temprano') {
+            // Solo deja habilitado "Experiencia"
+            document.getElementById('btnExperiencia').disabled = false;
+          } else if (data.status === 'avanzado') {
+            // Habilita todos los botones
+            const botones = document.querySelectorAll('.option');
+            botones.forEach((btn) => (btn.disabled = false));
+          }
+        } catch (error) {
+          console.error('Error consultando el backend:', error);
+        }
+      }
+
+      function handleOption(option) {
+        console.log('Opción seleccionada:', option);
+        if (option === 'Experiencia') {
+          window.location.href = 'feedback.html';
+        }
+        if (option === 'Reunión') {
+          window.location.href = 'reunion.html';
+        }
+        if (option === 'Calle') {
+          window.location.href = 'daily.html';
+        }
+        if (option === 'Limpieza') {
+          window.location.href = 'Cuidado.html';
+        }
+        if (option === 'Viaje') {
+          window.location.href = 'viaje.html';
+        }
+        if (option === 'Evento') {
+          window.location.href = 'evento.html';
+        }
+      }
+
+      // Llama al backend al cargar
+      window.onload = verificarEstadoBox;
+    </script>
   </body>
 </html>

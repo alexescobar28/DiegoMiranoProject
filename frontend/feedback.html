@@ -139,14 +139,15 @@
       nextButton.addEventListener('click', () => {
         if (Object.keys(selections).length === 4) {
           console.log('Selecciones completadas:', selections);
-          alert(
+          /*           alert(
             '¡Gracias por tu feedback! Selecciones: ' +
               JSON.stringify(selections, null, 2)
           );
           const h1 = document.getElementById('title');
           h1.textContent = 'Diseña tu entrega perfecta';
           const subtitle = document.querySelector('.subtitle');
-          subtitle.textContent = 'Ordene segun la importancia para ti';
+          subtitle.textContent = 'Ordene segun la importancia para ti'; */
+          window.location.href = 'feedback-orden.html';
         }
       });
 

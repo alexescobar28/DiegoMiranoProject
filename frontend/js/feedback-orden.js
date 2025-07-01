@@ -139,10 +139,15 @@ nextButton.addEventListener('click', () => {
       .map((item) => `${item.priority}. ${item.text}`)
       .join('\n');
 
-    alert('¡Gracias por ordenar tus prioridades!\n\n' + resultText);
+    //   alert('¡Gracias por ordenar tus prioridades!\n\n' + resultText);
 
     // Opcional: reiniciar para otra selección
-    // resetSelection();
+    resetSelection();
+    if (localStorage.getItem('tipoCompra') === 'Tienda física') {
+      window.location.href = 'thanks.html'; // Redirigir a la página de feedback
+    } else {
+      window.location.href = 'feedback-calendar.html'; // Redirigir al menú principal
+    }
   }
 });
 

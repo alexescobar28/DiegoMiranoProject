@@ -21,13 +21,13 @@ router.get('/', async (req, res) => {
         'Tu camino apenas comienza. ¡Gracias por escanear tu empaque por primera vez!',
     });
   }
-
+  box.ultimaVisita = now;
+  box.fechaPrimerEscaneo = new Date('2025-06-28'); // Simulando una fecha fija para pruebas
   // Escaneo recurrente
   const diasTranscurridos = Math.floor(
     (now - box.fechaPrimerEscaneo) / (1000 * 60 * 60 * 24)
   );
-  box.ultimaVisita = now;
-  //box.fechaPrimerEscaneo = new Date('2025-06-10'); // Simulando una fecha fija para pruebas
+
   await box.save();
 
   if (diasTranscurridos <= 2) {
