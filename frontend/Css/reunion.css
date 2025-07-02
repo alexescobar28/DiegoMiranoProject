@@ -51,20 +51,13 @@ body {
 }
 
 .logo-container {
+  display: flex;
+  justify-content: center;
   text-align: center;
   margin-bottom: 40px;
 }
 
 .logo {
-  background: var(--text-white);
-  color: var(--primary-bg);
-  padding: 15px 40px;
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  border-radius: 8px;
-  display: inline-block;
-  position: relative;
 }
 
 .logo::after {

@@ -227,10 +227,10 @@ body {
 
 /* Selected state */
 .menu-item.selected {
-  background: linear-gradient(135deg, #2e8b57 0%, #228b22 100%);
-  box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+  background: linear-gradient(135deg, #521a13 0%, #521a13 100%);
+  box-shadow: 0 4px 15px rgba(238, 247, 242, 0.4);
 }
 
 .menu-item.selected:hover {
-  background: linear-gradient(135deg, #228b22 0%, #2e8b57 100%);
+  background: linear-gradient(135deg, #521a13 0%, #521a13 100%);
 }

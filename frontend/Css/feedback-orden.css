@@ -30,6 +30,7 @@ body {
   min-height: 700px;
   position: relative;
   overflow: hidden;
+  justify-content: center;
 }
 
 .screen::before {
@@ -45,16 +46,10 @@ body {
 }
 
 .logo {
-  background: white;
-  color: black;
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-  letter-spacing: 2px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  margin-bottom: 40px;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  width: 150px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .title {
@@ -108,13 +103,13 @@ body {
 }
 
 .menu-item.selected {
-  background: linear-gradient(135deg, #2e8b57 0%, #228b22 100%);
-  box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+  background: linear-gradient(135deg, #521a13 0%, #521a13 100%);
+  box-shadow: 0 4px 15px rgba(197, 206, 201, 0.4);
   transform: scale(1.02);
 }
 
 .menu-item.selected:hover {
-  background: linear-gradient(135deg, #228b22 0%, #2e8b57 100%);
+  background: linear-gradient(135deg, #521a13 0%, #521a13 100%);
 }
 
 .menu-item.ordered {
@@ -138,7 +133,7 @@ body {
 }
 
 .menu-item.ordered .number-badge {
-  background: #32cd32;
+  background: #cd7832;
   box-shadow: 0 2px 8px rgba(50, 205, 50, 0.3);
 }
 

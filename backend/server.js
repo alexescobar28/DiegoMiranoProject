@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const feedbackRoutes = require('./routes/Feedback');
+const feedbackRoutes = require('./routes/feedback.js');
 
 const app = express();
 
