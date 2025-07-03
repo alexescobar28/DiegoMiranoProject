@@ -13,51 +13,142 @@
     />
   </head>
   <body>
-    <header>
+    <!-- Pantalla de bienvenida -->
+    <div
+      class="welcome-container"
+      id="welcomeScreen"
+    >
       <img
         src="assets/images/Logo.png"
         alt="Mirano Logo"
         class="logo"
       />
-    </header>
-    <div class="container">
-      <main class="main-content">
-        <h2>¿De qué manera adquiriste nuestro producto?</h2>
-        <br />
-        <div class="options">
-          <button
-            class="option"
-            onclick="handleOption('Redes Sociales')"
-          >
-            <img
-              src="assets/icons/socialMedia.svg"
-              alt="Redes Sociales"
-            />
-            <span>Redes Sociales</span>
-          </button>
-          <button
-            class="option"
-            onclick="handleOption('Sitio Web')"
-          >
-            <img
-              src="assets/icons/website.svg"
-              alt="Sitio Web"
-            />
-            <span>Sitio Web</span>
-          </button>
-          <button
-            class="option"
-            onclick="handleOption('Tienda física')"
-          >
-            <img
-              src="assets/icons/store.svg"
-              alt="Tienda Física"
-            />
-            <span>Tienda física</span>
-          </button>
-        </div>
-      </main>
+
+      <h1 class="welcome-message">¡Bienvenido!</h1>
+
+      <p class="thank-you-text">
+        Diego Mirano te agradece por ser parte de nuestra familia
+      </p>
+
+      <p class="transition-text">Preparando tu experiencia...</p>
+
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
+    <!-- Pantalla de video -->
+    <div
+      class="video-page"
+      id="videoPage"
+    >
+      <div class="video-container">
+        <!-- Iframe de Facebook -->
+        <iframe
+          id="facebookVideo"
+          src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2359212747747475&show_text=false&width=267&t=0"
+          width="267"
+          height="476"
+          style="
+            border: none;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            height: 70vh;
+            max-height: 600px;
+          "
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="false"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          oncontextmenu="return false;"
+        >
+        </iframe>
+
+        <!-- Mensaje de video en reproducción -->
+        <div class="video-info">
+          <div class="video-status"></div>
+          <div
+            class="video-timer"
+            id="videoTimer"
+          >
+            <span
+              >⏱️ Video obligatorio - Tiempo restante:
+              <span id="countdown">30</span>s</span
+            >
+          </div>
+        </div>
+
+        <!-- Overlay semi-transparente para mostrar restricciones -->
+        <div
+          class="restriction-overlay"
+          id="restrictionOverlay"
+        >
+          <div class="restriction-message">
+            <h3></h3>
+            <p></p>
+            <div class="countdown-circle">
+              <span id="circleCountdown"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pantalla de opciones -->
+    <div
+      class="main-page"
+      id="mainPage"
+    >
+      <header>
+        <div class="logo-placeholder">
+          <img
+            src="assets/images/Logo.png"
+            alt="Mirano Logo"
+            class="logo"
+          />
+        </div>
+      </header>
+      <div class="container">
+        <main class="main-content">
+          <h2>¿De qué manera adquiriste nuestro producto?</h2>
+          <br />
+          <div class="options">
+            <button
+              class="option"
+              onclick="handleOption('Redes Sociales')"
+            >
+              <img
+                src="assets/icons/socialMedia.svg"
+                alt="Redes Sociales"
+              />
+              <span>Redes Sociales</span>
+            </button>
+            <button
+              class="option"
+              onclick="handleOption('Sitio Web')"
+            >
+              <img
+                src="assets/icons/website.svg"
+                alt="Sitio Web"
+              />
+              <span>Sitio Web</span>
+            </button>
+            <button
+              class="option"
+              onclick="handleOption('Tienda física')"
+            >
+              <img
+                src="assets/icons/store.svg"
+                alt="Tienda Física"
+              />
+              <span>Tienda física</span>
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+
     <script src="js/TipoCompra.js"></script>
   </body>
 </html>

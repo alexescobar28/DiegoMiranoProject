@@ -21,7 +21,12 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+p {
+  color: var(--color-texto);
+  font-size: var(--font-sm);
+  margin: 5px;
+  text-align: center;
+}
 body {
   background-color: var(--color-fondo-principal);
   font-family: var(--fuente-principal);

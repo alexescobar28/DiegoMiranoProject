@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Cuida tus Zapatos</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Georgia', serif;
+        background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+        min-height: 100vh;
+        color: #fff;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #8b6f47;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 200px;
+        background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDYwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMkMyQzJDIi8+CjxlbGxpcHNlIGN4PSI0NTAiIGN5PSIxMDAiIHJ4PSIxMDAiIHJ5PSI0MCIgZmlsbD0iIzU0MzQyQSIvPgo8ZWxsaXBzZSBjeD0iNDUwIiBjeT0iODAiIHJ4PSI5NSIgcnk9IjM1IiBmaWxsPSIjNzA0RjM3Ii8+CjxlbGxpcHNlIGN4PSI0NTAiIGN5PSI2NSIgcng9IjkwIiByeT0iMzAiIGZpbGw9IiM4QjZGNDciLz4KPGVsbGlwc2UgY3g9IjQ1MCIgY3k9IjUwIiByeD0iODUiIHJ5PSIyNSIgZmlsbD0iI0E0ODA1RSIvPgo8L3N2Zz4K')
+          center/cover;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .title {
+        font-size: 2.2em;
+        font-weight: bold;
+        text-align: center;
+        color: #f5f5dc;
+        margin-bottom: 25px;
+        letter-spacing: 0.5px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .main-quote {
+        background: #f5f5dc;
+        color: #2c2c2c;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        font-size: 1.1em;
+        line-height: 1.6;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .tips-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .tip-card {
+        background: #f5f5dc;
+        color: #2c2c2c;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .tip-card.large {
+        grid-column: span 2;
+      }
+
+      .tip-card h3 {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .tip-card p {
+        font-size: 0.95em;
+        line-height: 1.5;
+      }
+
+      .tip-icon {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .shoe-image {
+        width: 100%;
+        height: 120px;
+        background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDIwMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjMkMyQzJDIi8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSI4MCIgcng9IjYwIiByeT0iMjUiIGZpbGw9IiM1NDM0MkEiLz4KPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjcwIiByeD0iNTUiIHJ5PSIyMCIgZmlsbD0iIzcwNEYzNyIvPgo8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iNjAiIHJ4PSI1MCIgcnk9IjE1IiBmaWxsPSIjOEI2RjQ3Ii8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSI1MCIgcng9IjQ1IiByeT0iMTIiIGZpbGw9IiNBNDgwNUUiLz4KPC9zdmc+Cg==')
+          center/cover;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px;
+          margin: 10px;
+        }
+
+        .title {
+          font-size: 1.8em;
+        }
+
+        .tips-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .tip-card.large {
+          grid-column: span 1;
+        }
+
+        .main-quote {
+          padding: 20px;
+          font-size: 1em;
+        }
+
+        .tip-card {
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .container {
+          padding: 15px;
+        }
+
+        .title {
+          font-size: 1.6em;
+        }
+
+        .hero-image {
+          height: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero-image"></div>
+
+      <h1 class="title">CUIDA TUS ZAPATOS COMO CUIDAS TU PRESENCIA.</h1>
+
+      <div class="main-quote">
+        Un zapato de gala no es solo una declaración. Refleja tu estilo, tu
+        carácter y el respeto que tienes por ti mismo y por los lugares que
+        pisas.
+      </div>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="shoe-image"></div>
+          <span class="tip-icon">🕯️</span>
+          <h3>Encera</h3>
+          <p>
+            Aplica cera natural una vez al mes con movimientos circulares. Haz
+            que el brillo diga: <em>"Estoy listo"</em>.
+          </p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-icon">🌲</span>
+          <h3>Preserva</h3>
+          <p>
+            Usa hormas de cedro para mantener la forma y absorber humedad. Es
+            cuidar el alma del zapato desde dentro.
+          </p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-icon">🔄</span>
+          <h3>Alterna</h3>
+          <p>
+            No los uses dos días seguidos. El cuero necesita respirar para durar
+            más y lucir mejor.
+          </p>
+        </div>
+
+        <div class="tip-card">
+          <div class="shoe-image"></div>
+          <span class="tip-icon">📦</span>
+          <h3>Guarda</h3>
+          <p>
+            Almacena en un lugar seco, lejos del sol. Un zapato elegante merece
+            descansar como una joya: bien protegido.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

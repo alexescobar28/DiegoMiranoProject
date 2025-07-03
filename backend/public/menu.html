@@ -20,9 +20,36 @@
         class="logo"
       />
     </header>
+    <p id="description">
+      Aún es <strong>temprano</strong> para disfrutar una experiencia completa,
+      pero <strong>Diego Mirano</strong> te invita a explorar nuestras
+      recomendaciones de cuidado y compartir tu opinión sobre la compra.
+    </p>
     <div class="container">
       <main>
         <div class="options">
+          <button
+            class="option"
+            onclick="handleOption('Experiencia')"
+            id="btnExperiencia"
+          >
+            <img
+              src="./assets/icons/experinecia-icon.svg"
+              alt="Experiencia"
+            />
+            <span>Experiencia</span>
+          </button>
+          <button
+            class="option"
+            onclick="handleOption('recomendacion')"
+            id="btnCuidado"
+          >
+            <img
+              src="./assets/images/cuidado-image.png"
+              alt="Experiencia"
+            />
+            <span><br />Tips de cuidado</span>
+          </button>
           <button
             class="option"
             onclick="handleOption('Reunión')"
@@ -83,17 +110,6 @@
             />
             <span>Evento</span>
           </button>
-          <button
-            class="option"
-            onclick="handleOption('Experiencia')"
-            id="btnExperiencia"
-          >
-            <img
-              src="./assets/icons/experinecia-icon.svg"
-              alt="Experiencia"
-            />
-            <span>Experiencia</span>
-          </button>
         </div>
       </main>
     </div>
@@ -112,10 +128,15 @@
           if (data.status === 'nuevo' || data.status === 'temprano') {
             // Solo deja habilitado "Experiencia"
             document.getElementById('btnExperiencia').disabled = false;
+            document.getElementById('description').innerHTML =
+              'Aún es <strong>temprano</strong> para disfrutar una experiencia completa, pero <strong>Diego Mirano</strong> te invita a explorar nuestras recomendaciones de cuidado y compartir tu opinión sobre la compra.';
           } else if (data.status === 'avanzado') {
             // Habilita todos los botones
             const botones = document.querySelectorAll('.option');
             botones.forEach((btn) => (btn.disabled = false));
+            document.getElementById('btnExperiencia').disabled = true;
+            document.getElementById('description').innerHTML =
+              'Tus zapatos tienen algo que contar. Compártenos la experiencia que marcó tu camino y elige cómo quieres recordarla.';
           }
         } catch (error) {
           console.error('Error consultando el backend:', error);
@@ -141,6 +162,9 @@
         }
         if (option === 'Evento') {
           window.location.href = 'evento.html';
+        }
+        if (option === 'recomendacion') {
+          window.location.href = 'recomendacion.html';
         }
       }
 
