@@ -28,7 +28,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 .phone-container {
   width: 100%;
@@ -62,7 +61,7 @@ body {
   background-color: var(--color-boton);
   max-width: var(--ancho-maximo);
   width: 100%;
-  height: 500px;
+  height: 300px;
   padding: var(--espaciado);
   border-radius: var(--radio-borde);
   text-align: center;
@@ -88,7 +87,6 @@ body {
 }
 .social-icons {
   position: relative;
-  margin-top: 100px;
   display: flex;
   justify-content: center;
   gap: 20px;

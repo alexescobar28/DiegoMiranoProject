@@ -44,7 +44,7 @@
                 data-value="casual"
               >
                 <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0ZGQTUwMCIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI2IiBmaWxsPSIjRkZGIi8+CjxjaXJjbGUgY3g9IjQwIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiNGRkYiLz4KPGNpcmNsZSBjeD0iMzAiIGN5PSI0MCIgcj0iMTAiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg=="
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0ZGQTUwMCIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI2IiBmaWxsPSIjRkZGIi8+CjxjaXJjbGUgY3g9IjQwIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiNGRkYiLz4KY2lyY2xlIGN4PSIzMCIgY3k9IjQwIiByPSIxMCIgZmlsbD0iI0ZGRiIvPgo8L3N2Zz4K"
                   alt="Casual"
                   class="option-image"
                 />
@@ -55,7 +55,7 @@
                 data-value="unexpected"
               >
                 <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0Y0NDMzNiIvPgo8cGF0aCBkPSJNMTUgMTVIMzBWMzBIMTVWMTVaIiBmaWxsPSIjRkZGIi8+CjxwYXRoIGQ9IjMwIDE1SDQ1VjMwSDMwVjE1WiIgZmlsbD0iI0ZGRiIvPgo8cGF0aCBkPSJNMTUgMzBIMzBWNDVIMTVWMzBaIiBmaWxsPSIjRkZGIi8+CjxwYXRoIGQ9Ik0zMCAzMEg0NVY0NUgzMFYzMFoiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg=="
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0Y0NDMzNiIvPgo8cGF0aCBkPSJNMTUgMTVIMzBWMzBIMTVWMTVaIiBmaWxsPSIjRkZGIi8+CjxwYXRoIGQ9Ik0zMCAxNUg0NVYzMEgzMFYxNVoiIGZpbGw9IiNGRkYiLz4KPHBhdGggZD0iTTE1IDMwSDMwVjQ1SDE1VjMwWiIgZmlsbD0iI0ZGRiIvPgo8cGF0aCBkPSJNMzAgMzBINDVWNDVIMzBWMzBaIiBmaWxsPSIjRkZGIi8+Cjwvc3ZnPgo="
                   alt="Inesperado"
                   class="option-image"
                 />
@@ -117,7 +117,7 @@
             id="screen4"
             class="screen-content hidden"
           >
-            <div class="question-text">Volverías a comprar con nosotros?</div>
+            <div class="question-text">¿Volverías a comprar con nosotros?</div>
             <div class="rating-options">
               <button
                 class="rating-option"
@@ -165,6 +165,7 @@
         init() {
           this.bindEvents();
           this.updateButtonState();
+          this.addTouchSupport();
         }
 
         bindEvents() {
@@ -200,8 +201,26 @@
             });
         }
 
+        addTouchSupport() {
+          // Añadir soporte táctil mejorado
+          const options = document.querySelectorAll(
+            '.option, .feedback-option, .rating-option'
+          );
+          options.forEach((option) => {
+            option.addEventListener('touchstart', (e) => {
+              e.preventDefault();
+              option.style.transform = 'scale(0.98)';
+            });
+
+            option.addEventListener('touchend', (e) => {
+              e.preventDefault();
+              option.style.transform = '';
+              option.click();
+            });
+          });
+        }
+
         handleOptionClick(option) {
-          // Remover selección previa
           const currentScreenEl = document.getElementById(
             `screen${this.currentScreen}`
           );
@@ -209,14 +228,12 @@
             opt.classList.remove('selected');
           });
 
-          // Seleccionar opción actual
           option.classList.add('selected');
           this.responses[`screen${this.currentScreen}`] = option.dataset.value;
           this.updateButtonState();
         }
 
         handleFeedbackClick(feedback) {
-          // Remover selección previa
           const currentScreenEl = document.getElementById(
             `screen${this.currentScreen}`
           );
@@ -226,7 +243,6 @@
               opt.classList.remove('selected');
             });
 
-          // Seleccionar opción actual
           feedback.classList.add('selected');
           this.responses[`screen${this.currentScreen}`] =
             feedback.dataset.value;
@@ -234,7 +250,6 @@
         }
 
         handleRatingClick(rating) {
-          // Remover selección previa
           const currentScreenEl = document.getElementById(
             `screen${this.currentScreen}`
           );
@@ -242,7 +257,6 @@
             opt.classList.remove('selected');
           });
 
-          // Seleccionar opción actual
           rating.classList.add('selected');
           this.responses[`screen${this.currentScreen}`] = rating.dataset.value;
           this.updateButtonState();
@@ -251,12 +265,9 @@
         nextScreen() {
           if (!this.canProceed()) return;
 
-          // Ocultar pantalla actual
           document
             .getElementById(`screen${this.currentScreen}`)
             .classList.add('hidden');
-
-          // Mostrar siguiente pantalla
           this.currentScreen++;
 
           if (this.currentScreen <= this.maxScreens) {
@@ -278,10 +289,9 @@
           const canProceed = this.canProceed();
 
           nextButton.disabled = !canProceed;
-          nextButton.style.opacity = '1';
-          nextButton.style.pointerEvents = 'auto';
+          nextButton.style.opacity = canProceed ? '1' : '0.5';
+          nextButton.style.pointerEvents = canProceed ? 'auto' : 'none';
 
-          // Cambiar texto del botón en la última pantalla
           if (this.currentScreen === this.maxScreens) {
             nextButton.textContent = 'Finalizar';
           } else {
@@ -290,10 +300,7 @@
         }
 
         completeSurvey() {
-          // Mostrar mensaje de agradecimiento
-          window.open('thanks.html', '_self');
-          // Guardar respuestas (en un caso real, enviarías esto a un servidor)
-          console.log('Survey responses:', this.responses);
+          window.location.href = 'thanks.html';
         }
       }
 
