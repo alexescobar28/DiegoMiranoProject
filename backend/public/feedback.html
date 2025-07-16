@@ -92,6 +92,7 @@
       // Elementos del DOM
       const menuItems = document.querySelectorAll('.menu-item');
       const nextButton = document.querySelector('.next-button');
+      const boxId = 'ZBX90234';
 
       // Función para manejar la selección de emojis
       function handleEmojiSelection(menuItem, emoji) {
@@ -122,7 +123,45 @@
         nextButton.style.opacity = isComplete ? '1' : '0.6';
         nextButton.style.pointerEvents = isComplete ? 'auto' : 'none';
       }
+      // Función para enviar feedback al backend
+      async function enviarFeedback() {
+        try {
+          const response = await fetch(
+            'https://diegomiranoproject.onrender.com/feedback/experiencia',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                boxId: boxId,
+                entrada: selections.entrada,
+                busqueda: selections.busqueda,
+                pago: selections.pago,
+                entrega: selections.entrega,
+              }),
+            }
+          );
 
+          const data = await response.json();
+
+          if (response.ok) {
+            console.log('Feedback enviado exitosamente:', data);
+
+            // Opcional: mostrar mensaje de éxito
+            alert('¡Gracias por tu feedback!');
+
+            // Redirigir a la siguiente página
+            window.location.href = 'feedback-orden.html';
+          } else {
+            console.error('Error enviando feedback:', data);
+            alert('Error al enviar feedback. Por favor intenta de nuevo.');
+          }
+        } catch (error) {
+          console.error('Error de conexión:', error);
+          alert('Error de conexión. Por favor intenta de nuevo.');
+        }
+      }
       // Event listeners para cada menu item
       menuItems.forEach((menuItem) => {
         const emojis = menuItem.querySelectorAll('.emoji');
@@ -147,6 +186,7 @@
           h1.textContent = 'Diseña tu entrega perfecta';
           const subtitle = document.querySelector('.subtitle');
           subtitle.textContent = 'Ordene segun la importancia para ti'; */
+          enviarFeedback();
           window.location.href = 'feedback-orden.html';
         }
       });

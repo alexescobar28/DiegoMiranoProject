@@ -1,162 +1,230 @@
+// Obtener boxId de la URL
+function obtenerBoxId() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('boxId') || 'ZBX90234';
+}
+
+const boxId = obtenerBoxId();
+
 // Estado del ordenamiento
-let selectionOrder = [];
-let currentStep = 1;
-const totalSteps = 4;
+let currentOrder = {};
+let selectedItems = [];
+let currentPriority = 1;
 
 // Elementos del DOM
 const menuItems = document.querySelectorAll('.menu-item');
+const instructionText = document.getElementById('instructionText');
 const nextButton = document.getElementById('nextButton');
 const clearButton = document.getElementById('clearButton');
-const instructionText = document.getElementById('instructionText');
 
-// Textos de instrucciones
+// Mapeo de instrucciones según la prioridad
 const instructions = {
   1: 'Selecciona el elemento más importante para ti',
   2: 'Ahora selecciona el segundo más importante',
-  3: 'Selecciona el tercer elemento en importancia',
+  3: 'Selecciona el tercero en importancia',
   4: 'Finalmente, selecciona el último elemento',
 };
 
-// Función para manejar la selección de elementos
-function handleItemSelection(event) {
-  const clickedItem = event.currentTarget;
-  const itemData = clickedItem.dataset.item;
+// Función para actualizar las instrucciones
+function updateInstructions() {
+  if (currentPriority <= 4) {
+    instructionText.textContent = instructions[currentPriority];
+  } else {
+    instructionText.textContent =
+      '¡Perfecto! Has completado tu orden de importancia';
+  }
+}
 
-  // Verificar si ya fue seleccionado
-  if (selectionOrder.includes(itemData)) {
+// Función para manejar la selección de elementos
+function handleItemSelection(item) {
+  const itemKey = item.dataset.item;
+
+  // Si ya está seleccionado, no hacer nada
+  if (selectedItems.includes(itemKey)) {
     return;
   }
 
-  // Agregar al orden de selección
-  selectionOrder.push(itemData);
+  // Agregar al orden actual
+  currentOrder[itemKey] = currentPriority;
+  selectedItems.push(itemKey);
 
-  // Marcar como ordenado y actualizar el número
-  clickedItem.classList.add('ordered');
-  clickedItem.classList.remove('selected');
+  // Actualizar la visualización
+  const badge = document.getElementById(`badge-${itemKey}`);
+  badge.textContent = currentPriority;
+  badge.style.backgroundColor = '#4CAF50';
 
-  const badge = document.getElementById(`badge-${itemData}`);
-  badge.textContent = currentStep;
+  // Marcar como seleccionado
+  item.classList.add('selected');
+  item.style.pointerEvents = 'none';
+  item.style.opacity = '0.7';
 
-  // Remover event listener para evitar re-selección
-  clickedItem.removeEventListener('click', handleItemSelection);
-  clickedItem.style.cursor = 'default';
+  // Avanzar a la siguiente prioridad
+  currentPriority++;
 
-  // Incrementar paso
-  currentStep++;
+  // Actualizar instrucciones
+  updateInstructions();
 
-  // Actualizar instrucciones y UI
-  updateUI();
-}
+  // Verificar si ya se completó todo
+  if (selectedItems.length === 4) {
+    nextButton.style.opacity = '1';
+    nextButton.style.pointerEvents = 'auto';
+    nextButton.style.backgroundColor = '#4CAF50';
 
-// Función para actualizar la interfaz
-function updateUI() {
-  // Remover selección anterior de todos los elementos
-  menuItems.forEach((item) => {
-    item.classList.remove('selected');
-  });
-
-  // Si no hemos terminado, marcar los elementos disponibles
-  if (currentStep <= totalSteps) {
-    // Actualizar texto de instrucciones
-    instructionText.textContent = instructions[currentStep];
-
-    // Marcar elementos disponibles como seleccionables
-    menuItems.forEach((item) => {
-      if (!selectionOrder.includes(item.dataset.item)) {
-        item.classList.add('selected');
+    // Ocultar elementos no seleccionados
+    menuItems.forEach((menuItem) => {
+      if (!selectedItems.includes(menuItem.dataset.item)) {
+        menuItem.style.display = 'none';
       }
     });
-  } else {
-    // Completado
-    instructionText.textContent = '¡Perfecto! Has ordenado todos los elementos';
-    instructionText.style.color = '#32CD32';
-
-    // Activar botón siguiente
-    nextButton.classList.add('active');
   }
 }
 
-// Función para reiniciar el ordenamiento
-function resetSelection() {
-  selectionOrder = [];
-  currentStep = 1;
+// Función para limpiar selecciones
+function clearSelections() {
+  currentOrder = {};
+  selectedItems = [];
+  currentPriority = 1;
 
+  // Resetear visualización
   menuItems.forEach((item) => {
-    item.classList.remove('ordered', 'selected');
-    item.style.cursor = 'pointer';
-    item.addEventListener('click', handleItemSelection);
+    const itemKey = item.dataset.item;
+    const badge = document.getElementById(`badge-${itemKey}`);
 
-    // Resetear números
-    const itemData = item.dataset.item;
-    const badge = document.getElementById(`badge-${itemData}`);
+    item.classList.remove('selected');
+    item.style.pointerEvents = 'auto';
+    item.style.opacity = '1';
+    item.style.display = 'block';
+
+    badge.style.backgroundColor = '#ddd';
+
+    // Resetear números de badge a su valor original
     const originalNumbers = {
-      atencion: '1',
-      eficiencia: '2',
-      presentacion: '3',
-      garantia: '4',
+      atencion: 1,
+      eficiencia: 2,
+      presentacion: 3,
+      garantia: 4,
     };
-    badge.textContent = originalNumbers[itemData];
+    badge.textContent = originalNumbers[itemKey];
   });
 
-  nextButton.classList.remove('active');
-  instructionText.style.color = '#DAA520';
-  updateUI();
+  // Resetear botón siguiente
+  nextButton.style.opacity = '0.6';
+  nextButton.style.pointerEvents = 'none';
+  nextButton.style.backgroundColor = '#ccc';
+
+  // Resetear instrucciones
+  updateInstructions();
 }
 
-// Event listeners iniciales
-menuItems.forEach((item) => {
-  item.addEventListener('click', handleItemSelection);
-});
+// Función para enviar orden al backend
+async function enviarOrden() {
+  try {
+    const response = await fetch(
+      'https://diegomiranoproject.onrender.com/feedback/orden',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          boxId: boxId,
+          atencion: currentOrder.atencion,
+          eficiencia: currentOrder.eficiencia,
+          presentacion: currentOrder.presentacion,
+          garantia: currentOrder.garantia,
+        }),
+      }
+    );
 
-// Event listener para el botón limpiar
-clearButton.addEventListener('click', () => {
-  // Animación de confirmación visual
-  clearButton.style.transform = 'scale(0.95)';
-  setTimeout(() => {
-    clearButton.style.transform = '';
-    resetSelection();
-  }, 150);
-});
+    const data = await response.json();
 
-// Event listener para el botón siguiente
-nextButton.addEventListener('click', () => {
-  if (selectionOrder.length === totalSteps) {
-    // Crear resultado final
-    const finalOrder = selectionOrder.map((item, index) => {
-      const itemElement = document.querySelector(`[data-item="${item}"]`);
-      const itemText = itemElement.querySelector('span').textContent;
-      return {
-        priority: index + 1,
-        item: item,
-        text: itemText,
-      };
-    });
+    if (response.ok) {
+      console.log('Orden enviado exitosamente:', data);
 
-    console.log('Orden final de prioridades:', finalOrder);
+      // Mostrar mensaje de éxito
+      alert('¡Gracias por completar tu orden de importancia!');
 
-    // Mostrar resultado
-    const resultText = finalOrder
-      .map((item) => `${item.priority}. ${item.text}`)
-      .join('\n');
-
-    //   alert('¡Gracias por ordenar tus prioridades!\n\n' + resultText);
-
-    // Opcional: reiniciar para otra selección
-    resetSelection();
-    if (localStorage.getItem('tipoCompra') === 'Tienda física') {
-      window.location.href = 'thanks.html'; // Redirigir a la página de feedback
+      // Redirigir a la página principal o siguiente paso
+      window.location.href = 'feedback-calendar.html';
     } else {
-      window.location.href = 'feedback-calendar.html'; // Redirigir al menú principal
+      console.error('Error enviando orden:', data);
+      alert('Error al enviar el orden. Por favor intenta de nuevo.');
     }
+  } catch (error) {
+    console.error('Error de conexión:', error);
+    alert('Error de conexión. Por favor intenta de nuevo.');
+  }
+}
+
+// Función para cargar orden existente
+async function cargarOrdenExistente() {
+  try {
+    const response = await fetch(
+      `https://diegomiranoproject.onrender.com/feedback/orden/${boxId}`
+    );
+    const data = await response.json();
+
+    if (response.ok && data.orden) {
+      const orden = data.orden;
+
+      // Precargar el orden existente
+      Object.keys(orden).forEach((key) => {
+        if (key !== 'fechaOrden' && orden[key]) {
+          currentOrder[key] = orden[key];
+          selectedItems.push(key);
+
+          const item = document.querySelector(`[data-item="${key}"]`);
+          const badge = document.getElementById(`badge-${key}`);
+
+          if (item && badge) {
+            badge.textContent = orden[key];
+            badge.style.backgroundColor = '#4CAF50';
+            item.classList.add('selected');
+            item.style.pointerEvents = 'none';
+            item.style.opacity = '0.7';
+          }
+        }
+      });
+
+      // Actualizar estado
+      currentPriority = selectedItems.length + 1;
+      updateInstructions();
+
+      if (selectedItems.length === 4) {
+        nextButton.style.opacity = '1';
+        nextButton.style.pointerEvents = 'auto';
+        nextButton.style.backgroundColor = '#4CAF50';
+      }
+    }
+  } catch (error) {
+    console.error('Error cargando orden existente:', error);
+  }
+}
+
+// Event listeners
+menuItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    if (currentPriority <= 4) {
+      handleItemSelection(item);
+    }
+  });
+});
+
+clearButton.addEventListener('click', clearSelections);
+
+nextButton.addEventListener('click', () => {
+  if (selectedItems.length === 4) {
+    enviarOrden();
   }
 });
 
-// Doble clic para reiniciar (funcionalidad oculta ahora innecesaria)
-// document.addEventListener('dblclick', (e) => {
-//     if (e.target.closest('.logo')) {
-//         resetSelection();
-//     }
-// });
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+  updateInstructions();
+  cargarOrdenExistente();
 
-// Inicializar la interfaz
-updateUI();
+  // Configurar estado inicial del botón siguiente
+  nextButton.style.opacity = '0.6';
+  nextButton.style.pointerEvents = 'none';
+  nextButton.style.backgroundColor = '#ccc';
+});

@@ -72,6 +72,13 @@
     </div>
 
     <script>
+      // Obtener boxId de la URL
+      function obtenerBoxId() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('boxId') || 'ZBX90234';
+      }
+
+      const boxId = obtenerBoxId();
       function updateMessage() {
         const expectedDate = document.getElementById('expectedDate').value;
         const arrivalDate = document.getElementById('arrivalDate').value;
@@ -92,7 +99,47 @@
           }
         }
       }
+      // Función para enviar calendario al backend
+      async function enviarCalendario(expectedDate, arrivalDate) {
+        try {
+          const response = await fetch(
+            'https://diegomiranoproject.onrender.com/feedback/calendario',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                boxId: boxId,
+                fechaEsperada: expectedDate,
+                fechaLlegada: arrivalDate,
+              }),
+            }
+          );
 
+          const data = await response.json();
+
+          if (response.ok) {
+            console.log('Calendario enviado exitosamente:', data);
+
+            // Mostrar mensaje de éxito con información adicional
+            const mensaje = data.resumen.llegadaATiempo
+              ? '¡Gracias por confirmar que tu producto llegó a tiempo!'
+              : `¡Gracias por tu feedback! Tu producto ${data.resumen.estado}`;
+
+            alert(mensaje);
+
+            // Redirigir a la página de agradecimiento
+            window.location.href = `thanks.html?boxId=${boxId}`;
+          } else {
+            console.error('Error enviando calendario:', data);
+            alert('Error al enviar el calendario. Por favor intenta de nuevo.');
+          }
+        } catch (error) {
+          console.error('Error de conexión:', error);
+          alert('Error de conexión. Por favor intenta de nuevo.');
+        }
+      }
       function checkDates() {
         const expectedDate = document.getElementById('expectedDate').value;
         const arrivalDate = document.getElementById('arrivalDate').value;
@@ -101,18 +148,31 @@
           alert('Por favor, selecciona ambas fechas');
           return;
         }
+        // Validar que las fechas sean válidas
+        const fechaEsperada = new Date(expectedDate);
+        const fechaLlegada = new Date(arrivalDate);
 
+        if (isNaN(fechaEsperada.getTime()) || isNaN(fechaLlegada.getTime())) {
+          alert('Por favor, selecciona fechas válidas');
+          return;
+        }
         updateMessage();
 
-        // Aquí puedes agregar la lógica para continuar al siguiente paso
-        console.log('Fechas validadas:', {
-          esperada: expectedDate,
-          llegada: arrivalDate,
-          aTiempo: expectedDate === arrivalDate,
-        });
+        enviarCalendario(fechaEsperada, fechaLlegada);
         window.location.href = 'thanks.html'; // Redirigir a la siguiente pantalla
       }
+      // Función para obtener la fecha de hoy en formato YYYY-MM-DD
+      function obtenerFechaHoy() {
+        const hoy = new Date();
+        return hoy.toISOString().split('T')[0];
+      }
 
+      // Función para obtener la fecha de hace una semana
+      function obtenerFechaSemanaAnterior() {
+        const fecha = new Date();
+        fecha.setDate(fecha.getDate() - 7);
+        return fecha.toISOString().split('T')[0];
+      }
       // Event listeners para actualizar el mensaje cuando cambien las fechas
       document
         .getElementById('expectedDate')
@@ -121,8 +181,26 @@
         .getElementById('arrivalDate')
         .addEventListener('change', updateMessage);
 
-      // Inicializar el mensaje
-      updateMessage();
+      // Inicializar cuando se carga la página
+      document.addEventListener('DOMContentLoaded', function () {
+        // Establecer fechas por defecto si no hay valores guardados
+        const expectedDateInput = document.getElementById('expectedDate');
+        const arrivalDateInput = document.getElementById('arrivalDate');
+
+        if (!expectedDateInput.value) {
+          expectedDateInput.value = obtenerFechaSemanaAnterior();
+        }
+
+        if (!arrivalDateInput.value) {
+          arrivalDateInput.value = obtenerFechaHoy();
+        }
+
+        // Cargar datos existentes si los hay
+        cargarCalendarioExistente();
+
+        // Actualizar mensaje inicial
+        updateMessage();
+      });
     </script>
   </body>
 </html>

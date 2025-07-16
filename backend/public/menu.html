@@ -120,7 +120,7 @@
       async function verificarEstadoBox() {
         try {
           const response = await fetch(
-            `https://diegomiranoproject.onrender.com/feedback?boxId=${boxId}`
+            `https://diegomiranoproject.onrender.com/feedback?boxId=${boxId}` //https://diegomiranoproject.onrender.com/feedback?boxId=
           );
           const data = await response.json();
           console.log(data);
