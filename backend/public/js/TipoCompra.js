@@ -15,8 +15,7 @@ function startWelcomeTransition() {
     // Mostrar página de video
     setTimeout(() => {
       welcomeScreen.style.display = 'none';
-      videoPage.classList.add('show');
-      initializeVideoTimer();
+      mainPage.classList.add('show');
     }, 800);
   }, 4000); // 4 segundos de duración para el mensaje de bienvenida
 }
