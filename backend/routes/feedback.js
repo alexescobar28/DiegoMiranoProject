@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
   }
 
   box.ultimaVisita = now;
-  box.fechaPrimerEscaneo = new Date('2025-07-07'); // Simulando una fecha fija para pruebas
+  box.fechaPrimerEscaneo = new Date('2025-07-16'); // Simulando una fecha fija para pruebas
 
   // Escaneo recurrente
   const diasTranscurridos = Math.floor(
