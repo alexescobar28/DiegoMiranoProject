@@ -1,9 +1,9 @@
 :root {
-  --color-fondo-principal: #000000;
-  --color-fondo-contenedor: #1a0e0a;
-  --color-boton: #a86f1c;
+  --color-fondo-principal: #030204;
+  --color-fondo-contenedor: #030204;
+  --color-boton: #364755;
   --color-texto: #ffffff;
-  --color-hover: #c48725;
+  --color-hover: #516370;
 
   --radio-borde: 12px;
   --fuente-principal: 'Arial', sans-serif;
@@ -48,19 +48,7 @@ body {
   position: relative;
   overflow: hidden;
 }
-.container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../assets/images/botin.png');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.1;
-  z-index: 0;
-}
+
 .logo {
   width: 150px;
   margin: 0 auto var(--espaciado);
@@ -94,4 +82,9 @@ button:disabled {
   filter: blur(0.5px);
   transform: scale(0.98);
   box-shadow: none;
+}
+button img {
+  width: var(--tamano-img);
+  height: var(--tamano-img);
+  margin-bottom: 10px;
 }

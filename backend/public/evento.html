@@ -37,7 +37,7 @@
                 data-value="gala"
               >
                 <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iIzMzMzMzMyIvPgo8cGF0aCBkPSJNMzAgMTVMMzUgMjVIMjVMMzAgMTVaIiBmaWxsPSIjRkZENzAwIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iNDAiIHI9IjgiIGZpbGw9IiNGRkQ3MDAiLz4KPC9zdmc+Cg=="
+                  src="assets/images/noche_gala.png"
                   alt="Gala"
                   class="option-image"
                 />
@@ -48,7 +48,7 @@
                 data-value="casual"
               >
                 <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0ZGQTUwMCIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI2IiBmaWxsPSIjRkZGIi8+CjxjaXJjbGUgY3g9IjQwIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiNGRkYiLz4KY2lyY2xlIGN4PSIzMCIgY3k9IjQwIiByPSIxMCIgZmlsbD0iI0ZGRiIvPgo8L3N2Zz4K"
+                  src="assets/images/cena_casual.jpeg"
                   alt="Casual"
                   class="option-image"
                 />
@@ -59,7 +59,7 @@
                 data-value="unexpected"
               >
                 <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iI0Y0NDMzNiIvPgo8cGF0aCBkPSJNMTUgMTVIMzBWMzBIMTVWMTVaIiBmaWxsPSIjRkZGIi8+CjxwYXRoIGQ9Ik0zMCAxNUg0NVYzMEgzMFYxNVoiIGZpbGw9IiNGRkYiLz4KPHBhdGggZD0iTTE1IDMwSDMwVjQ1SDE1VjMwWiIgZmlsbD0iI0ZGRiIvPgo8cGF0aCBkPSJNMzAgMzBINDVWNDVIMzBWMzBaIiBmaWxsPSIjRkZGIi8+Cjwvc3ZnPgo="
+                  src="assets/images/eventoInesperado.jpeg"
                   alt="Inesperado"
                   class="option-image"
                 />
@@ -67,7 +67,6 @@
               </button>
             </div>
           </div>
-
           <!-- Screen 2: Appropriateness Feedback -->
           <div
             id="screen2"
@@ -312,6 +311,14 @@
       document.addEventListener('DOMContentLoaded', () => {
         new SurveyApp();
       });
+      function scrollOptions(direction) {
+        const container = document.querySelector('.options-container');
+        const scrollAmount = container.offsetWidth * 0.8;
+        container.scrollBy({
+          left: direction === 'next' ? scrollAmount : -scrollAmount,
+          behavior: 'smooth',
+        });
+      }
     </script>
   </body>
 </html>

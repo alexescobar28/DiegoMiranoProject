@@ -1,6 +1,6 @@
 :root {
   --primary-bg: #1a1a1a;
-  --card-bg: #8b4513;
+  --card-bg: #364755;
   --accent-gold: #d4af37;
   --text-white: #ffffff;
   --text-light: #f5f5f5;
@@ -58,6 +58,17 @@ body {
 }
 
 .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+logo img {
+  width: 250px;
+
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .logo::after {
@@ -81,24 +92,9 @@ body {
   overflow: hidden;
 }
 
-.rating-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('../assets/images/botin.png') center/contain no-repeat;
-  opacity: 0.15;
-  z-index: 1;
-}
-
 .rating-content {
   position: relative;
   z-index: 2;
-}
-
-.boot-icon {
 }
 
 .rating-text {
@@ -114,7 +110,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 30px;
-  margin: 30px 0;
+  margin: 10px 0;
 }
 
 .feedback-button {
@@ -152,7 +148,6 @@ body {
 
 .thumb-down {
   color: var(--accent-gold);
-  transform: rotate(180deg);
 }
 
 /* Ocultar elementos de la pantalla anterior */
@@ -251,9 +246,9 @@ body {
 }
 
 .next-button:hover {
-  background: #b8941f;
+  background: #e8b975;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 6px 20px #c38c4a;
 }
 
 .next-button:active {
@@ -262,6 +257,10 @@ body {
 
 /* Responsive Design */
 @media (max-width: 480px) {
+  body {
+    padding: 0px;
+    margin: 0;
+  }
   .phone-container {
     border-radius: 0;
     border: none;
@@ -274,12 +273,19 @@ body {
   }
 
   .logo {
-    font-size: 20px;
-    padding: 12px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
   }
+  .logo img {
+    width: 250px;
 
+    border-radius: 50%;
+  }
   .rating-card {
-    padding: 30px 20px;
+    padding: 10px 10px;
   }
 
   .rating-text {
@@ -292,8 +298,15 @@ body {
   }
 
   .next-button {
+    margin-top: 25px;
     padding: 12px 35px;
     font-size: 14px;
+  }
+  .next-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
   }
 }
 

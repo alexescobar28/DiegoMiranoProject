@@ -1,15 +1,15 @@
 /* Variables de colores */
 :root {
-  --color-primary: #8b4513;
-  --color-secondary: #d2691e;
-  --color-accent: #ffd700;
+  --color-primary: #516370;
+  --color-secondary: #c38c4a;
+  --color-accent: #e8b975;
   --color-text-white: #ffffff;
   --color-text-dark: #333333;
-  --color-background: #2c1810;
-  --color-card: #5d4037;
-  --color-button: #b8860b;
-  --color-button-hover: #daa520;
-  --color-emoji-bg: #ff6b35;
+  --color-background: #030204;
+  --color-card: #1c242f;
+  --color-button: #c38c4a;
+  --color-button-hover: #e8b975;
+  --color-emoji-bg: #c38c4a;
 }
 
 * {
@@ -56,8 +56,7 @@ body {
 }
 
 .header {
-  background-color: var(--color-text-white);
-  color: var(--color-text-dark);
+  background-color: var(--color-background);
   text-align: center;
   padding: 20px;
   font-size: 24px;
@@ -76,11 +75,13 @@ body {
 }
 
 .title {
-  color: var(--color-text-white);
+  background-color: var(--color-primary);
   font-size: 22px;
-  margin-bottom: 30px;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 10px;
   text-align: center;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 .options-container {
@@ -100,7 +101,8 @@ body {
   font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  flex-direction: column;
+  gap: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
@@ -134,7 +136,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   align-self: center;
-  margin-top: 20px;
+  margin-top: 2px;
   width: fit-content;
 }
 
@@ -236,7 +238,10 @@ body {
   body {
     padding: 10px;
   }
-
+  .icons {
+    width: 50px;
+    height: 50px;
+  }
   .phone-container {
     border-radius: 20px;
     padding: 15px;
@@ -253,16 +258,23 @@ body {
   }
 
   .header {
-    padding: 15px;
-    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
   }
-
+  .logo {
+    width: 150px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
   .title {
     font-size: 20px;
   }
 
   .option-button {
-    padding: 15px;
+    padding: 5px;
     font-size: 15px;
   }
 

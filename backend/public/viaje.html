@@ -29,7 +29,7 @@
         >
           <div class="content">
             <div class="airplane-icon">
-              <div class="airplane">✈️</div>
+              <div class="airplane"></div>
             </div>
             <div class="message">
               Con estos botines, mi estilo en reuniones de negocios fue
@@ -117,19 +117,19 @@
                 class="option-button"
                 onclick="selectOption(this, 'encanto')"
               >
-                Me encantó 😍
+                🙂 Me encantó
               </button>
               <button
                 class="option-button"
                 onclick="selectOption(this, 'bien')"
               >
-                Estuvo bien 👍
+                😐 Estuvo bien
               </button>
               <button
                 class="option-button"
                 onclick="selectOption(this, 'mejor')"
               >
-                Pudo ser mejor 🤔
+                😑 Pudo ser mejor
               </button>
             </div>
             <button
@@ -352,13 +352,13 @@
 
         if (percentageUsed <= 40) {
           difficulty = 'Desapercibido';
-          color = '#e74c3c'; // rojo
+          color = '#516370'; // azul
         } else if (percentageUsed <= 80) {
           difficulty = 'Neutro';
-          color = '#f1c40f'; // Amarillo
+          color = '#364755'; // azul acentuado
         } else {
           difficulty = 'Impecable';
-          color = '#2ecc71'; // Rojo
+          color = '#1c242f'; // azul oscuro
         }
 
         progressIndicator.textContent = difficulty;

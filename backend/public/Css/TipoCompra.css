@@ -1,9 +1,9 @@
 :root {
-  --color-fondo-principal: #000000;
-  --color-fondo-contenedor: #1a0e0a;
-  --color-boton: #a86f1c;
+  --color-fondo-principal: #030204;
+  --color-fondo-contenedor: #030204;
+  --color-boton: #364755;
   --color-texto: #ffffff;
-  --color-hover: #c48725;
+  --color-hover: #516370;
 
   --radio-borde: 12px;
   --fuente-principal: 'Arial', sans-serif;
